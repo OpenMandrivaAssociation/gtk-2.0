@@ -32,8 +32,8 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
-Version:	2.10.11
-Release:        %mkrel 2
+Version:	2.10.12
+Release:        %mkrel 1
 License:	LGPL
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -50,9 +50,7 @@ Patch15:	gtk+-2.10.7-cursor-blink.patch
 # (fc) 2.10.6-4mdv add fam monitoring for recent files (Fedora)
 Patch16:	gtk+-2.10.3-fam.patch
 # (fc) 2.10.6-4mdv add search field in file selector (Fedora)
-Patch17:	gtk+-2.10.8-search.patch
-# (fc) 2.10.11-2mdv SVN fixes 
-Patch18:	gtk+-2.10.11-svnfixes.patch
+Patch17:	gtk+-2.10.12-search.patch
 
 Conflicts:	perl-Gtk2 < 1.113
 
@@ -218,7 +216,6 @@ with gtk+ Frame Buffer.
 %patch15 -p1 -b .cursor-blink
 %patch16 -p1 -b .fam
 %patch17 -p1 -b .search
-%patch18 -p1 -b .svnfixes
 
 #needed by patches 4 and 14
 aclocal-1.7
@@ -446,5 +443,3 @@ fi
 %attr(644,root,root) %{_libdir}/*linux-fb*.la
 %{_libdir}/pkgconfig/*linux-fb*
 %endif
-
-
