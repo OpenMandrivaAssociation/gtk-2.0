@@ -16,7 +16,7 @@
 
 
 # required version of various libraries
-%define req_glib_version		2.12.0
+%define req_glib_version		2.13.1
 %define req_pango_version		1.13.0
 %define req_atk_version			1.2.0
 %define req_cairo_version		1.2.0
@@ -32,7 +32,7 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
-Version:	2.10.12
+Version:	2.11.1
 Release:        %mkrel 1
 License:	LGPL
 Group:		System/Libraries
@@ -45,12 +45,8 @@ Patch5:		gtk+-2.6.9-fileselectorfallback.patch
 Patch12:	gtk+-2.10.1-defaulttheme.patch
 # (gb) 2.4.4-2mdk handle biarch
 Patch13:	gtk+-2.2.4-lib64.patch
-# (fc) 2.10.6-4mdv stop cursor blinking after some time (Fedora) (CVS)
-Patch15:	gtk+-2.10.7-cursor-blink.patch
 # (fc) 2.10.6-4mdv add fam monitoring for recent files (Fedora)
-Patch16:	gtk+-2.10.3-fam.patch
-# (fc) 2.10.6-4mdv add search field in file selector (Fedora)
-Patch17:	gtk+-2.10.12-search.patch
+Patch16:	gtk+-2.11.0-fam.patch
 
 Conflicts:	perl-Gtk2 < 1.113
 
@@ -213,9 +209,7 @@ with gtk+ Frame Buffer.
 %patch5 -p1 -b .fileselectorfallback
 %patch12 -p1 -b .defaulttheme
 %patch13 -p1 -b .lib64
-%patch15 -p1 -b .cursor-blink
 %patch16 -p1 -b .fam
-%patch17 -p1 -b .search
 
 #needed by patches 4 and 14
 aclocal-1.7
@@ -376,6 +370,7 @@ fi
 %defattr(-, root, root)
 %doc NEWS README
 %ghost %verify (not md5 mtime size) %config(noreplace) %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
+%config(noreplace) %{_sysconfdir}/gtk-%{api_version}/im-multipress.conf
 %dir %{_libdir}/gtk-%{api_version}
 %dir %{_libdir}/gtk-%{api_version}/bin
 %{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version}
