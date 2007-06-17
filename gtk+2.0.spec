@@ -76,6 +76,8 @@ BuildRequires: gtk-doc >= 0.9
 BuildRequires: sgml-tools
 BuildRequires: texinfo
 %endif
+# gw tests will fail without this
+BuildRequires: fonts-ttf-dejavu
 Requires: ia_ora-gnome
 Requires: %{_lib}ia_ora-gnome
 Requires: %{libname} = %{version}
