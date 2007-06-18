@@ -33,10 +33,12 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.11.3
-Release:        %mkrel 1
+Release:        %mkrel 2
 License:	LGPL
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
+# gw upstream bug #448193
+Patch: gtk+-2.11.3-no-c++-keyword.patch
 # extra IM modules (vietnamese and tamil) -- pablo
 Patch4:		gtk+-2.10.7-extra_im.patch 
 # (fc) 2.0.6-8mdk fix infinite loop and crash in file selector when / and $HOME are not readable (bug #90)
@@ -207,6 +209,7 @@ with gtk+ Frame Buffer.
 
 %prep
 %setup -n %{pkgname}-%{version} -q
+%patch -p0 -b .no-c++-keyword
 %patch4 -p1 -b .extra_im
 %patch5 -p1 -b .fileselectorfallback
 %patch12 -p1 -b .defaulttheme
