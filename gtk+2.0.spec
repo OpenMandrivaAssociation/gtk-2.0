@@ -32,7 +32,7 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
-Version:	2.11.4
+Version:	2.11.5
 Release:        %mkrel 1
 License:	LGPL
 Group:		System/Libraries
@@ -390,6 +390,7 @@ fi
 %doc %{_datadir}/gtk-doc/html/gdk
 %doc %{_datadir}/gtk-doc/html/gtk
 %{_bindir}/gtk-demo
+%_bindir/gtk-builder-convert
 %{_datadir}/aclocal/*
 %{_datadir}/gtk-%{api_version}
 %{_includedir}/gtk-unix-print-%{api_version}/
