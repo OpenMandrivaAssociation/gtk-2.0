@@ -45,8 +45,6 @@ Patch5:		gtk+-2.6.9-fileselectorfallback.patch
 Patch12:	gtk+-2.10.1-defaulttheme.patch
 # (gb) 2.4.4-2mdk handle biarch
 Patch13:	gtk+-2.2.4-lib64.patch
-# (fc) 2.10.6-4mdv add fam monitoring for recent files (Fedora)
-Patch16:	gtk+-2.11.0-fam.patch
 # (fc) 2.11.6-2mdv fix tooltip on systray (SVN)
 Patch17:	gtk+-2.11.6-fixtooltip.patch
 
@@ -213,7 +211,6 @@ with gtk+ Frame Buffer.
 %patch5 -p1 -b .fileselectorfallback
 %patch12 -p1 -b .defaulttheme
 %patch13 -p1 -b .lib64
-#%patch16 -p1 -b .fam
 %patch17 -p1 -b .fixtooltip
 
 #needed by patches 4 and 14
