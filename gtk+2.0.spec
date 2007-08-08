@@ -40,7 +40,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.11.6
-Release:        %mkrel 3
+Release:        %mkrel 4
 License:	LGPL
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -54,6 +54,8 @@ Patch12:	gtk+-2.10.1-defaulttheme.patch
 Patch13:	gtk+-2.2.4-lib64.patch
 # (fc) 2.11.6-2mdv fix tooltip on systray (SVN)
 Patch17:	gtk+-2.11.6-fixtooltip.patch
+# (fc) 2.11.6-4mdv fix crash on deprecated tooltip private field access (SVN)
+Patch18:	gtk+-2.11.6-fixtooltipaccess.patch
 
 Conflicts:	perl-Gtk2 < 1.113
 
@@ -222,6 +224,7 @@ with gtk+ Frame Buffer.
 %patch12 -p1 -b .defaulttheme
 %patch13 -p1 -b .lib64
 %patch17 -p1 -b .fixtooltip
+%patch18 -p1 -b .fixtooltipaccess
 
 #needed by patches 4 and 14
 aclocal-1.7
