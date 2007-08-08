@@ -8,11 +8,18 @@
 #      1 = yes
 %define enable_gtkdoc 1
 
+# enable_bootstrap: Toggle if bootstrapping package
+#      0 = no
+#      1 = yes
+%define enable_bootstrap 0
+
 %{?_without_gtkdoc: %{expand: %%define enable_gtkdoc 0}}
 %{?_without_fb: %{expand: %%define build_fb 0}}
+%{?_without_bootstrap: %{expand: %%define enable_bootstrap 0}}
 
 %{?_with_gtkdoc: %{expand: %%define enable_gtkdoc 1}}
 %{?_with_fb: %{expand: %%define build_fb 1}}
+%{?_with_bootstrap: %{expand: %%define enable_bootstrap 0}}
 
 
 # required version of various libraries
@@ -33,7 +40,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.11.6
-Release:        %mkrel 2
+Release:        %mkrel 3
 License:	LGPL
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -78,8 +85,11 @@ BuildRequires: texinfo
 %endif
 # gw tests will fail without this
 BuildRequires: fonts-ttf-dejavu
-Requires: ia_ora-gnome
-Requires: %{_lib}ia_ora-gnome
+%if !%{enable_bootstrap}
+Suggests: xdg-user-dirs-gtk
+Suggests: %{_lib}ia_ora-gnome
+Suggests: ia_ora-gnome
+%endif
 Requires: %{libname} = %{version}
 Provides:	%{pkgname}2 = %{version}-%{release}
 Obsoletes:	%{pkgname}2
