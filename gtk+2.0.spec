@@ -40,7 +40,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.11.6
-Release:        %mkrel 4
+Release:        %mkrel 5
 License:	LGPL
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -56,6 +56,8 @@ Patch13:	gtk+-2.2.4-lib64.patch
 Patch17:	gtk+-2.11.6-fixtooltip.patch
 # (fc) 2.11.6-4mdv fix crash on deprecated tooltip private field access (SVN)
 Patch18:	gtk+-2.11.6-fixtooltipaccess.patch
+# (fc) 2.11.6-6mdv fix build with latest cups (SVN)
+Patch19:	gtk+-2.11.6-fixcups.patch
 
 Conflicts:	perl-Gtk2 < 1.113
 
@@ -225,12 +227,13 @@ with gtk+ Frame Buffer.
 %patch13 -p1 -b .lib64
 %patch17 -p1 -b .fixtooltip
 %patch18 -p1 -b .fixtooltipaccess
+%patch19 -p1 -b .fixcups
 
 #needed by patches 4 and 14
 aclocal-1.7
 automake-1.7
 
-#needed by patches 13 
+#needed by patches 13 & 19
 autoheader
 autoconf
 
@@ -380,12 +383,12 @@ fi
 %{_bindir}/gtk-update-icon-cache
 %{_datadir}/themes
 %dir %{_sysconfdir}/gtk-%{api_version}
+%config(noreplace) %{_sysconfdir}/gtk-%{api_version}/im-multipress.conf
 
 %files -n %{libname}
 %defattr(-, root, root)
 %doc NEWS README
 %ghost %verify (not md5 mtime size) %config(noreplace) %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
-%config(noreplace) %{_sysconfdir}/gtk-%{api_version}/im-multipress.conf
 %dir %{_libdir}/gtk-%{api_version}
 %dir %{_libdir}/gtk-%{api_version}/bin
 %{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version}
