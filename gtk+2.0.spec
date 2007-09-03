@@ -40,7 +40,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.11.6
-Release:        %mkrel 5
+Release:        %mkrel 6
 License:	LGPL
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -56,8 +56,12 @@ Patch13:	gtk+-2.2.4-lib64.patch
 Patch17:	gtk+-2.11.6-fixtooltip.patch
 # (fc) 2.11.6-4mdv fix crash on deprecated tooltip private field access (SVN)
 Patch18:	gtk+-2.11.6-fixtooltipaccess.patch
-# (fc) 2.11.6-6mdv fix build with latest cups (SVN)
+# (fc) 2.11.6-5mdv fix build with latest cups (SVN)
 Patch19:	gtk+-2.11.6-fixcups.patch
+# (fc) 2.11.6-6mdv prevent Flash to crash with glib 2.12 (GNOME bug #463773) (Jan de Groot)
+Patch20:	gtk+-2.11.6-preventflashcrash.patch
+# (mk) rename Uzbek translations to match mdv-2008.0 locales-uz (Mdv bug #33003)
+Patch21:	gtk+-2.11.6-fix-uz-pos.patch
 
 Conflicts:	perl-Gtk2 < 1.113
 
@@ -228,12 +232,14 @@ with gtk+ Frame Buffer.
 %patch17 -p1 -b .fixtooltip
 %patch18 -p1 -b .fixtooltipaccess
 %patch19 -p1 -b .fixcups
+%patch20 -p1 -b .preventflashcrash
+%patch21 -p1 -b .fix-uz-pos
 
 #needed by patches 4 and 14
 aclocal-1.7
 automake-1.7
 
-#needed by patches 13 & 19
+#needed by patches 13 & 19 & 21
 autoheader
 autoconf
 
