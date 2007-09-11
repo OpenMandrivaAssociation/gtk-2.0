@@ -40,7 +40,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.11.6
-Release:        %mkrel 6
+Release:        %mkrel 7
 License:	LGPL
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -62,7 +62,8 @@ Patch19:	gtk+-2.11.6-fixcups.patch
 Patch20:	gtk+-2.11.6-preventflashcrash.patch
 # (mk) rename Uzbek translations to match mdv-2008.0 locales-uz (Mdv bug #33003)
 Patch21:	gtk+-2.11.6-fix-uz-pos.patch
-
+# (gw) fix context menus http://bugzilla.gnome.org/show_bug.cgi?id=449371
+Patch22: gtk+-2.11.6-fix-context-menu.patch
 Conflicts:	perl-Gtk2 < 1.113
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
@@ -234,6 +235,7 @@ with gtk+ Frame Buffer.
 %patch19 -p1 -b .fixcups
 %patch20 -p1 -b .preventflashcrash
 %patch21 -p1 -b .fix-uz-pos
+%patch22 -p0
 
 #needed by patches 4 and 14
 aclocal-1.7
