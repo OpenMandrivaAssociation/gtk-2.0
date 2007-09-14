@@ -54,6 +54,8 @@ Patch12:	gtk+-2.10.1-defaulttheme.patch
 Patch13:	gtk+-2.2.4-lib64.patch
 # (fc) 2.11.6-6mdv prevent Flash to crash with glib 2.12 (GNOME bug #463773) (Jan de Groot)
 Patch20:	gtk+-2.11.6-preventflashcrash.patch
+# (fc) 2.12.0-1mdv fix icon cache validation code (GNOME bug #476342)
+Patch21:	gtk+-2.12.0-fixiconcachevalidation.patch
 Conflicts:	perl-Gtk2 < 1.113
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
@@ -221,12 +223,13 @@ with gtk+ Frame Buffer.
 %patch12 -p1 -b .defaulttheme
 %patch13 -p1 -b .lib64
 %patch20 -p1 -b .preventflashcrash
+%patch21 -p1 -b .fixiconcachevalidation
 
-#needed by patches 4 and 14
+#needed by patches 4
 aclocal-1.7
 automake-1.7
 
-#needed by patches 13 & 19 & 21
+#needed by patches 13
 autoheader
 autoconf
 
