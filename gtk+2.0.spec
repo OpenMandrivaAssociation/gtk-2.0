@@ -39,8 +39,8 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
-Version:	2.11.6
-Release:        %mkrel 7
+Version:	2.12.0
+Release:        %mkrel 1
 License:	LGPL
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -52,18 +52,8 @@ Patch5:		gtk+-2.6.9-fileselectorfallback.patch
 Patch12:	gtk+-2.10.1-defaulttheme.patch
 # (gb) 2.4.4-2mdk handle biarch
 Patch13:	gtk+-2.2.4-lib64.patch
-# (fc) 2.11.6-2mdv fix tooltip on systray (SVN)
-Patch17:	gtk+-2.11.6-fixtooltip.patch
-# (fc) 2.11.6-4mdv fix crash on deprecated tooltip private field access (SVN)
-Patch18:	gtk+-2.11.6-fixtooltipaccess.patch
-# (fc) 2.11.6-5mdv fix build with latest cups (SVN)
-Patch19:	gtk+-2.11.6-fixcups.patch
 # (fc) 2.11.6-6mdv prevent Flash to crash with glib 2.12 (GNOME bug #463773) (Jan de Groot)
 Patch20:	gtk+-2.11.6-preventflashcrash.patch
-# (mk) rename Uzbek translations to match mdv-2008.0 locales-uz (Mdv bug #33003)
-Patch21:	gtk+-2.11.6-fix-uz-pos.patch
-# (gw) fix context menus http://bugzilla.gnome.org/show_bug.cgi?id=449371
-Patch22: gtk+-2.11.6-fix-context-menu.patch
 Conflicts:	perl-Gtk2 < 1.113
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
@@ -230,12 +220,7 @@ with gtk+ Frame Buffer.
 %patch5 -p1 -b .fileselectorfallback
 %patch12 -p1 -b .defaulttheme
 %patch13 -p1 -b .lib64
-%patch17 -p1 -b .fixtooltip
-%patch18 -p1 -b .fixtooltipaccess
-%patch19 -p1 -b .fixcups
 %patch20 -p1 -b .preventflashcrash
-%patch21 -p1 -b .fix-uz-pos
-%patch22 -p0
 
 #needed by patches 4 and 14
 aclocal-1.7
