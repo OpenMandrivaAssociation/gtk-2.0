@@ -40,7 +40,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.12.0
-Release:        %mkrel 2
+Release:        %mkrel 3
 License:	LGPL
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -56,6 +56,8 @@ Patch13:	gtk+-2.2.4-lib64.patch
 Patch20:	gtk+-2.11.6-preventflashcrash.patch
 # (fc) 2.12.0-1mdv fix icon cache validation code (GNOME bug #476342)
 Patch21:	gtk+-2.12.0-fixiconcachevalidation.patch
+# (mk) rename Uzbek translations to match mdv-2008.0 locales-uz (Mdv bug #33003)	 
+Patch22:        gtk+-2.12.0-fix-uz-pos.patch
 Conflicts:	perl-Gtk2 < 1.113
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
@@ -224,6 +226,7 @@ with gtk+ Frame Buffer.
 %patch13 -p1 -b .lib64
 %patch20 -p1 -b .preventflashcrash
 %patch21 -p1 -b .fixiconcachevalidation
+%patch22 -p1 -b .fix-uz-pos
 
 #needed by patches 4
 aclocal-1.7
