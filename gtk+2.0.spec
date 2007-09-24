@@ -40,7 +40,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.12.0
-Release:        %mkrel 4
+Release:        %mkrel 5
 License:	LGPL
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -60,6 +60,8 @@ Patch22:        gtk+-2.12.0-fix-uz-pos.patch
 Patch23:	gtk+-2.12.0-svnfixes.patch
 # (fc) 2.12.0-4mdv fix crash in XDG mime cache (Joe Shaw) (fd.o bug #12512)
 Patch24:	gtk+-2.12.0-xdgcachecrash.patch
+# (fc) 2.12.0-5mdv prevent crash with old eclipse release (GNOME bug #460194)
+Patch25:	gtk+-2.12.0-fixeclipsecrash.patch
 Conflicts:	perl-Gtk2 < 1.113
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
@@ -230,6 +232,7 @@ with gtk+ Frame Buffer.
 %patch22 -p1 -b .fix-uz-pos
 %patch23 -p1 -b .svnfixes
 %patch24 -p1 -b .xdgcachecrash
+%patch25 -p1 -b .fixeclipsecrash
 
 #needed by patches 4
 aclocal-1.7
