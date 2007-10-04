@@ -40,7 +40,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.12.0
-Release:        %mkrel 6
+Release:        %mkrel 7
 License:	LGPL
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -64,6 +64,11 @@ Patch24:	gtk+-2.12.0-xdgcachecrash.patch
 Patch25:	gtk+-2.12.0-fixeclipsecrash.patch
 # (fc) 2.12.0-6mdv fix crash when cancelling search (GNOME bug #480123) (SVN)
 Patch26:	gtk+-2.12.0-searchcrash.patch
+# (fc) 2.12.0-7mdv improve file chooser entry field response to Ctrl-L shortcut (GNOME bug #455284) (SVN)
+Patch27:	gtk+-2.12.0-filechooserentry.patch
+# (fc) 2.12.0-7mdv fix filechooser date conversion for non-UTF8 locale (GNOME bug #482504) (SVN)
+Patch28:	gtk+-2.12.0-filechooserdateconversion.patch
+
 Conflicts:	perl-Gtk2 < 1.113
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
@@ -236,6 +241,8 @@ with gtk+ Frame Buffer.
 %patch24 -p1 -b .xdgcachecrash
 %patch25 -p1 -b .fixeclipsecrash
 %patch26 -p1 -b .searchcrash
+%patch27 -p1 -b .filechooserentry
+%patch28 -p1 -b .filechooserdateconversion
 
 #needed by patches 4
 aclocal-1.7
