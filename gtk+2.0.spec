@@ -40,7 +40,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.12.0
-Release:        %mkrel 7
+Release:        %mkrel 8
 License:	LGPL
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -68,6 +68,8 @@ Patch26:	gtk+-2.12.0-searchcrash.patch
 Patch27:	gtk+-2.12.0-filechooserentry.patch
 # (fc) 2.12.0-7mdv fix filechooser date conversion for non-UTF8 locale (GNOME bug #482504) (SVN)
 Patch28:	gtk+-2.12.0-filechooserdateconversion.patch
+# (fc) 2.12.0-8mdv fix gdkwindow invalidation crash (Firefox print preview crash) (Mdv bug #33579)
+Patch29:	gtk+-2.12.0-fixgdkupdatecrash.patch
 
 Conflicts:	perl-Gtk2 < 1.113
 
@@ -243,6 +245,7 @@ with gtk+ Frame Buffer.
 %patch26 -p1 -b .searchcrash
 %patch27 -p1 -b .filechooserentry
 %patch28 -p1 -b .filechooserdateconversion
+%patch29 -p1 -b .fixgdkupdatecrash
 
 #needed by patches 4
 aclocal-1.7
