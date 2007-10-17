@@ -39,8 +39,8 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
-Version:	2.12.0
-Release:        %mkrel 8
+Version:	2.12.1
+Release:        %mkrel 1
 License:	LGPL
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -56,18 +56,8 @@ Patch13:	gtk+-2.2.4-lib64.patch
 Patch20:	gtk+-2.11.6-preventflashcrash.patch
 # (mk) rename Uzbek translations to match mdv-2008.0 locales-uz (Mdv bug #33003)	 
 Patch22:        gtk+-2.12.0-fix-uz-pos.patch
-# (fc) 2.12.0-4mdv various SVN fixes
-Patch23:	gtk+-2.12.0-svnfixes.patch
 # (fc) 2.12.0-4mdv fix crash in XDG mime cache (Joe Shaw) (fd.o bug #12512)
 Patch24:	gtk+-2.12.0-xdgcachecrash.patch
-# (fc) 2.12.0-5mdv prevent crash with old eclipse release (GNOME bug #460194)
-Patch25:	gtk+-2.12.0-fixeclipsecrash.patch
-# (fc) 2.12.0-6mdv fix crash when cancelling search (GNOME bug #480123) (SVN)
-Patch26:	gtk+-2.12.0-searchcrash.patch
-# (fc) 2.12.0-7mdv improve file chooser entry field response to Ctrl-L shortcut (GNOME bug #455284) (SVN)
-Patch27:	gtk+-2.12.0-filechooserentry.patch
-# (fc) 2.12.0-7mdv fix filechooser date conversion for non-UTF8 locale (GNOME bug #482504) (SVN)
-Patch28:	gtk+-2.12.0-filechooserdateconversion.patch
 # (fc) 2.12.0-8mdv fix gdkwindow invalidation crash (Firefox print preview crash) (Mdv bug #33579)
 Patch29:	gtk+-2.12.0-fixgdkupdatecrash.patch
 
@@ -239,12 +229,7 @@ with gtk+ Frame Buffer.
 %patch13 -p1 -b .lib64
 %patch20 -p1 -b .preventflashcrash
 %patch22 -p1 -b .fix-uz-pos
-%patch23 -p1 -b .svnfixes
 %patch24 -p1 -b .xdgcachecrash
-%patch25 -p1 -b .fixeclipsecrash
-%patch26 -p1 -b .searchcrash
-%patch27 -p1 -b .filechooserentry
-%patch28 -p1 -b .filechooserdateconversion
 %patch29 -p1 -b .fixgdkupdatecrash
 
 #needed by patches 4
