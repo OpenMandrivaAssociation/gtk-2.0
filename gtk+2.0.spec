@@ -55,7 +55,8 @@ Patch13:	gtk+-2.2.4-lib64.patch
 # (fc) 2.11.6-6mdv prevent Flash to crash with glib 2.12 (GNOME bug #463773) (Jan de Groot)
 Patch20:	gtk+-2.11.6-preventflashcrash.patch
 # (mk) rename Uzbek translations to match mdv-2008.0 locales-uz (Mdv bug #33003)	 
-Patch22:        gtk+-2.12.0-fix-uz-pos.patch
+# gw remove this in 2008.1 once locales-uz was updated
+Patch22:        gtk+-2.12.1-fix-uz-pos.patch
 # (fc) 2.12.0-4mdv fix crash in XDG mime cache (Joe Shaw) (fd.o bug #12512)
 Patch24:	gtk+-2.12.0-xdgcachecrash.patch
 # (fc) 2.12.0-8mdv fix gdkwindow invalidation crash (Firefox print preview crash) (Mdv bug #33579)
