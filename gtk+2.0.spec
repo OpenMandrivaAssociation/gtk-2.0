@@ -40,7 +40,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.12.1
-Release:        %mkrel 1
+Release:        %mkrel 2
 License:	LGPL
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -61,6 +61,8 @@ Patch22:        gtk+-2.12.1-fix-uz-pos.patch
 Patch24:	gtk+-2.12.0-xdgcachecrash.patch
 # (fc) 2.12.0-8mdv fix gdkwindow invalidation crash (Firefox print preview crash) (Mdv bug #33579)
 Patch29:	gtk+-2.12.0-fixgdkupdatecrash.patch
+# (fc) 2.12.1-2mdv various SVN fixes
+Patch30:	gtk+-2.12.1-svnfixes.patch
 
 Conflicts:	perl-Gtk2 < 1.113
 
@@ -232,6 +234,7 @@ with gtk+ Frame Buffer.
 %patch22 -p1 -b .fix-uz-pos
 %patch24 -p1 -b .xdgcachecrash
 %patch29 -p1 -b .fixgdkupdatecrash
+%patch30 -p1 -b .svnfixes
 
 #needed by patches 4
 aclocal-1.7
