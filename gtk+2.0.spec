@@ -234,7 +234,7 @@ with gtk+ Frame Buffer.
 aclocal-1.7
 automake-1.7
 
-#needed by patches 13
+#needed by patches 13 & 22
 autoheader
 autoconf
 
