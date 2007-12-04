@@ -75,7 +75,7 @@ BuildRequires:	libtiff-devel
 BuildRequires:  cairo-devel >= %{req_cairo_version}
 BuildRequires:	pango-devel >= %{req_pango_version}
 BuildRequires:  automake1.7
-BuildRequires:  XFree86-devel
+BuildRequires:  X11-devel
 BuildRequires:  cups-devel
 BuildRequires:  fam-devel
 %if %mdkversion <= 200600
