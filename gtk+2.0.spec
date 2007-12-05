@@ -39,7 +39,7 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
-Version:	2.12.2
+Version:	2.12.3
 Release:        %mkrel 1
 License:	LGPL
 Group:		System/Libraries
