@@ -62,7 +62,6 @@ Patch24:	gtk+-2.12.0-xdgcachecrash.patch
 
 Conflicts:	perl-Gtk2 < 1.113
 
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 URL:		http://www.gtk.org
 Requires:	common-licenses
