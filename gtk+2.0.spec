@@ -40,7 +40,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.12.8
-Release:        %mkrel 3
+Release:        %mkrel 4
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -61,6 +61,12 @@ Patch22:        gtk+-2.12.1-fix-uz-pos.patch
 Patch24:	gtk+-2.12.0-xdgcachecrash.patch
 # (fc) 2.12.8-2mdv guard recent manager against recursion (GNOME bug #507605) (SVN)
 Patch25:	gtk+-2.12.8-guardrecentmanagerrecursion.patch
+# (fc) 2.12.8-4mdv fix libbeagle soname (SVN)
+Patch26:	gtk+-2.12.8-libbeagle.patch
+# (fc) 2.12.8-4mdv fix critical warnings from Treeview (GNOME bug #488119) (SVN)
+Patch27:	gtk+-2.12.8-treeviewcriticalwarning.patch
+# (fc) 2.12.8-4mdv add Gtk/IMModule xsetting support (GNOME bug #502446) (SVN)
+Patch28:	gtk+-2.12.8-im-setting.patch
 
 Conflicts:	perl-Gtk2 < 1.113
 
@@ -234,6 +240,9 @@ with gtk+ Frame Buffer.
 %endif
 %patch24 -p1 -b .xdgcachecrash
 %patch25 -p1 -b .guardrecentmanagerrecursion
+%patch26 -p1 -b .libbeagle
+%patch27 -p1 -b .treeviewcriticalwarning
+%patch28 -p1 -b .im-setting
 
 #needed by patches 4
 aclocal-1.7
