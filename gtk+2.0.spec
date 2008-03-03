@@ -40,7 +40,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.12.8
-Release:        %mkrel 4
+Release:        %mkrel 5
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -100,7 +100,6 @@ BuildRequires: texinfo
 BuildRequires: fonts-ttf-dejavu
 %if !%{enable_bootstrap}
 Suggests: xdg-user-dirs-gtk
-Suggests: %{_lib}ia_ora-gnome
 Suggests: ia_ora-gnome
 %endif
 Requires: %{libname} = %{version}
@@ -130,6 +129,9 @@ Conflicts:  libgnomeui2_0 <= 2.0.5
 Conflicts:  gtk-engines2 <= 2.2.0-7mdk
 Conflicts:  %{libname_x11} < 2.10.3-2mdv2007.0
 Requires(post): 	%{libname_x11} = %{version}
+%if !%{enable_bootstrap}
+Suggests: %{_lib}ia_ora-gnome
+%endif
 
 %description -n %{libname}
 This package contains the library needed to run programs dynamically
