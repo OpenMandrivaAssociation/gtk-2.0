@@ -39,8 +39,8 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
-Version:	2.12.9
-Release:        %mkrel 2
+Version:	2.12.10
+Release:        %mkrel 1
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -57,14 +57,10 @@ Patch20:	gtk+-2.11.6-preventflashcrash.patch
 # (mk) rename Uzbek translations to match mdv-2008.0 locales-uz (Mdv bug #33003)	 
 # gw remove this in 2008.1 once locales-uz was updated
 Patch22:        gtk+-2.12.1-fix-uz-pos.patch
-# (fc) 2.12.0-4mdv fix crash in XDG mime cache (Joe Shaw) (fd.o bug #12512)
-Patch24:	gtk+-2.12.0-xdgcachecrash.patch
 # (fc) 2.12.8-4mdv fix critical warnings from Treeview (GNOME bug #488119) (SVN)
 Patch27:	gtk+-2.12.8-treeviewcriticalwarning.patch
 # (fc) 2.12.8-4mdv add Gtk/IMModule xsetting support (GNOME bug #502446) (SVN)
 Patch28:	gtk+-2.12.8-im-setting.patch
-# (fc) 2.12.9-2mdv fix crash in cups backend on 64bits (Mdv bug #39711)
-Patch29:	gtk+-2.12.9-fix64bitscrash.patch
 
 Conflicts:	perl-Gtk2 < 1.113
 
@@ -238,10 +234,8 @@ with gtk+ Frame Buffer.
 %if %mdkversion < 200810
 %patch22 -p1 -b .fix-uz-pos
 %endif
-%patch24 -p1 -b .xdgcachecrash
 %patch27 -p1 -b .treeviewcriticalwarning
 %patch28 -p1 -b .im-setting
-%patch29 -p1 -b .fix64bitscrash
 
 #needed by patches 4
 aclocal-1.7
