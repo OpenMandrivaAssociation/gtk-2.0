@@ -350,7 +350,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules
 rm -rf $RPM_BUILD_ROOT
 
 %post -n %{libname_pixbuf}
+%if %mdkversion < 200900
 /sbin/ldconfig
+%endif
 
 if [ "$1" = "2" ]; then
   if [ -f %{_sysconfdir}/gtk-%{api_version}/gdk-pixbuf.loaders ]; then
@@ -360,11 +362,17 @@ fi
 
 %{_libdir}/gtk-%{api_version}/bin/gdk-pixbuf-query-loaders >  %{_sysconfdir}/gtk-%{api_version}/gdk-pixbuf.loaders.%{_lib}
 
+%if %mdkversion < 200900
 %postun -n %{libname_pixbuf} -p /sbin/ldconfig
+%endif
 
+%if %mdkversion < 200900
 %post -n %{libname_x11} -p /sbin/ldconfig
+%endif
 
+%if %mdkversion < 200900
 %postun -n %{libname_x11} -p /sbin/ldconfig
+%endif
 
 %post -n %{libname}
 if [ "$1" = "2" ]; then
@@ -375,8 +383,12 @@ fi
 
 %{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version} > %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
 
+%if %mdkversion < 200900
 %post -n %{libname_linuxfb} -p /sbin/ldconfig
+%endif
+%if %mdkversion < 200900
 %postun -n %{libname_linuxfb} -p /sbin/ldconfig
+%endif
 
 %post 
 if [ -d %{_datadir}/icons ]; then
