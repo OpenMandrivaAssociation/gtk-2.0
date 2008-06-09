@@ -40,7 +40,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.12.10
-Release:        %mkrel 1
+Release:        %mkrel 2
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -61,6 +61,8 @@ Patch22:        gtk+-2.12.1-fix-uz-pos.patch
 Patch27:	gtk+-2.12.8-treeviewcriticalwarning.patch
 # (fc) 2.12.8-4mdv add Gtk/IMModule xsetting support (GNOME bug #502446) (SVN)
 Patch28:	gtk+-2.12.8-im-setting.patch
+# (fc) 2.12.10-2mdv fix menu positioning regression (GNOME bug #536757) (SVN)
+Patch29:	gtk+-2.12.10-fixmenuposition.patch
 
 Conflicts:	perl-Gtk2 < 1.113
 
@@ -236,6 +238,7 @@ with gtk+ Frame Buffer.
 %endif
 %patch27 -p1 -b .treeviewcriticalwarning
 %patch28 -p1 -b .im-setting
+%patch29 -p1 -b .fixmenuposition
 
 #needed by patches 4
 aclocal-1.7
