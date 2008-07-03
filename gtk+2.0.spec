@@ -37,15 +37,19 @@
 %define libname_linuxfb %mklibname %{pkgname}-linuxfb- %{api_version} %{lib_major}
 %define libname_pixbuf  %mklibname gdk_pixbuf %{api_version} %{lib_major}
 
+%define gail_major 18
+%define gail_libname %mklibname gail %gail_major
+%define gaildevelname %mklibname -d gail
+
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
-Version:	2.12.11
+Version:	2.13.3
 Release:        %mkrel 1
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
 # extra IM modules (vietnamese and tamil) -- pablo
-Patch4:		gtk+-2.10.7-extra_im.patch 
+Patch4:		gtk+-2.13.1-extra_im.patch 
 # (fc) 2.0.6-8mdk fix infinite loop and crash in file selector when / and $HOME are not readable (bug #90)
 Patch5:		gtk+-2.6.9-fileselectorfallback.patch
 # (fc) 2.4.0-2mdk use Ia Ora theme by default if available
@@ -57,10 +61,6 @@ Patch20:	gtk+-2.11.6-preventflashcrash.patch
 # (mk) rename Uzbek translations to match mdv-2008.0 locales-uz (Mdv bug #33003)	 
 # gw remove this in 2008.1 once locales-uz was updated
 Patch22:        gtk+-2.12.1-fix-uz-pos.patch
-# (fc) 2.12.8-4mdv fix critical warnings from Treeview (GNOME bug #488119) (SVN)
-Patch27:	gtk+-2.12.8-treeviewcriticalwarning.patch
-# (fc) 2.12.8-4mdv add Gtk/IMModule xsetting support (GNOME bug #502446) (SVN)
-Patch28:	gtk+-2.12.8-im-setting.patch
 
 Conflicts:	perl-Gtk2 < 1.113
 
@@ -99,6 +99,8 @@ Suggests: ia_ora-gnome
 Requires: %{libname} = %{version}
 Provides:	%{pkgname}2 = %{version}-%{release}
 Obsoletes:	%{pkgname}2
+Provides:	gail = %version-%release
+Obsoletes:	gail
 
 %description
 The gtk+ package contains the GIMP ToolKit (GTK+), a library for creating
@@ -193,6 +195,7 @@ Conflicts:  libgtk+2-devel < 2.0.0
 This package contains the X11 version of library needed to run
 programs dynamically linked with gtk+.
 
+%if 0
 %package -n %{libname_linuxfb}
 Summary:	Frame-Buffer backend of The GIMP ToolKit (GTK+)
 Group:		System/Libraries
@@ -223,6 +226,29 @@ Requires:	libpango1.0-devel >= %{req_pango_version}
 %description -n %{libname_linuxfb}-devel
 This package contains the development files needed to compile programs
 with gtk+ Frame Buffer.
+%endif
+
+%package -n %{gail_libname}
+Summary:	GNOME Accessibility Implementation Library
+Group:		System/Libraries
+Provides:	libgail = %{version}-%{release}
+Conflicts:	gail < 1.9.4-2mdv
+
+
+%description -n %{gail_libname}
+Gail is the GNOME Accessibility Implementation Library
+
+%package -n %gaildevelname
+Summary:	Static libraries, include files for GAIL
+Group:		Development/GNOME and GTK+
+Provides:	gail-devel = %{version}-%{release}
+Provides:	libgail-devel = %{version}-%{release}
+Requires:	%{gail_libname} = %{version}
+Conflicts:	%{_lib}gail17-devel
+Obsoletes: %mklibname -d gail 18
+
+%description -n %gaildevelname
+Gail is the GNOME Accessibility Implementation Library
 
 %prep
 %setup -n %{pkgname}-%{version} -q
@@ -234,8 +260,6 @@ with gtk+ Frame Buffer.
 %if %mdkversion < 200810
 %patch22 -p1 -b .fix-uz-pos
 %endif
-%patch27 -p1 -b .treeviewcriticalwarning
-%patch28 -p1 -b .im-setting
 
 #needed by patches 4
 aclocal-1.7
@@ -259,6 +283,8 @@ export CFLAGS="$RPM_OPT_FLAGS -mminimal-toc"
 #cd X11-build
 
 #CONFIGURE_TOP=.. 
+export CPPFLAGS="-DGTK_COMPILATION"
+%define _disable_ld_no_undefined 1
 %configure2_5x \
 	--with-xinput=xfree \
 %if !%enable_gtkdoc
@@ -341,7 +367,8 @@ cat gtk20-properties.lang >> gtk20.lang
 rm -f $RPM_BUILD_ROOT%{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/*.la \
   $RPM_BUILD_ROOT%{_libdir}/gtk-%{api_version}/%{binary_version}.*/loaders/*.la \
   $RPM_BUILD_ROOT%{_libdir}/gtk-%{api_version}/%{binary_version}.*/engines/*.la \
-  $RPM_BUILD_ROOT%{_libdir}/gtk-%{api_version}/%{binary_version}.*/printbackends/*.la
+  $RPM_BUILD_ROOT%{_libdir}/gtk-%{api_version}/%{binary_version}.*/printbackends/*.la \
+  $RPM_BUILD_ROOT%{_libdir}/gtk-2.0/modules/*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -477,3 +504,17 @@ fi
 %attr(644,root,root) %{_libdir}/*linux-fb*.la
 %{_libdir}/pkgconfig/*linux-fb*
 %endif
+
+%files -n %gail_libname
+%defattr(-,root,root)
+%{_libdir}/libgailutil.so.%{gail_major}*
+%{_libdir}/gtk-2.0/modules/libferret.so
+%{_libdir}/gtk-2.0/modules/libgail.so
+
+%files -n %gaildevelname
+%defattr(-,root,root)
+%{_datadir}/gtk-doc/html/gail-libgail-util
+%{_libdir}/libgailutil.so
+%attr(644,root,root) %{_libdir}/libgailutil.la
+%{_includedir}/gail-1.0
+%{_libdir}/pkgconfig/gail.pc
