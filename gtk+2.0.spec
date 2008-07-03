@@ -80,6 +80,7 @@ BuildRequires:  automake1.7
 BuildRequires:  X11-devel
 BuildRequires:  cups-devel
 BuildRequires:  fam-devel
+BuildRequires:  jasper-devel
 %if %mdkversion <= 200600
 BuildRequires:	XFree86-Xvfb
 %else
