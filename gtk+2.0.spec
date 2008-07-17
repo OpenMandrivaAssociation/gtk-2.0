@@ -23,10 +23,10 @@
 
 
 # required version of various libraries
-%define req_glib_version		2.13.1
-%define req_pango_version		1.13.0
-%define req_atk_version			1.2.0
-%define req_cairo_version		1.2.0
+%define req_glib_version		2.17.3
+%define req_pango_version		1.20.0
+%define req_atk_version			1.13.0
+%define req_cairo_version		1.6.0
 
 %define pkgname			gtk+
 %define api_version		2.0
@@ -44,7 +44,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.13.4
-Release:        %mkrel 1
+Release:        %mkrel 2
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -408,11 +408,13 @@ fi
 
 %{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version} > %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
 
+%if %{build_fb}
 %if %mdkversion < 200900
 %post -n %{libname_linuxfb} -p /sbin/ldconfig
 %endif
 %if %mdkversion < 200900
 %postun -n %{libname_linuxfb} -p /sbin/ldconfig
+%endif
 %endif
 
 %post 
