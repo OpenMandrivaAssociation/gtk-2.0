@@ -23,7 +23,7 @@
 
 
 # required version of various libraries
-%define req_glib_version		2.17.3
+%define req_glib_version		2.17.4
 %define req_pango_version		1.20.0
 %define req_atk_version			1.13.0
 %define req_cairo_version		1.6.0
@@ -43,8 +43,8 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
-Version:	2.13.4
-Release:        %mkrel 2
+Version:	2.13.5
+Release:        %mkrel 1
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
