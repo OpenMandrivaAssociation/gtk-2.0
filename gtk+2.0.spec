@@ -44,7 +44,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.13.5
-Release:        %mkrel 2
+Release:        %mkrel 3
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -63,6 +63,8 @@ Patch20:	gtk+-2.11.6-preventflashcrash.patch
 Patch22:        gtk+-2.12.1-fix-uz-pos.patch
 # (fc) 2.13.5.2-mdv fix xinerama when randr 1.2 is in compat mode (Mdv bug #42065) (GNOME bug #543317)
 Patch23:	gtk+-2.13.5-randr12-compat.patch
+# (fc) 2.13.5-3mdv fix crash in gtk print dialog (GNOME bug #544390) (SVN)
+Patch24:	gtk+-2.13.5-fixprintcrash.patch
 
 Conflicts:	perl-Gtk2 < 1.113
 
@@ -264,6 +266,7 @@ Gail is the GNOME Accessibility Implementation Library
 %patch22 -p1 -b .fix-uz-pos
 %endif
 %patch23 -p1 -b .randr12-compat
+%patch24 -p1 -b .fixprintcrash
 
 #needed by patches 4
 aclocal-1.7
