@@ -44,7 +44,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.13.6
-Release:        %mkrel 1
+Release:        %mkrel 2
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -61,6 +61,8 @@ Patch20:	gtk+-2.11.6-preventflashcrash.patch
 # (mk) rename Uzbek translations to match mdv-2008.0 locales-uz (Mdv bug #33003)	 
 # gw remove this in 2008.1 once locales-uz was updated
 Patch22:        gtk+-2.12.1-fix-uz-pos.patch
+# (fc) 2.13.6-2mdv fix misrendering in evolution composer (GNOME bug #546754) (SVN)
+Patch23:	gtk+-2.13.6-clamp.patch 
 
 Conflicts:	perl-Gtk2 < 1.113
 
@@ -261,6 +263,7 @@ Gail is the GNOME Accessibility Implementation Library
 %if %mdkversion < 200810
 %patch22 -p1 -b .fix-uz-pos
 %endif
+%patch23 -p1 -b .clamp
 
 #needed by patches 4
 aclocal-1.7
@@ -292,7 +295,7 @@ export CPPFLAGS="-DGTK_COMPILATION"
 	--enable-gtk-doc=no
 %endif
 
-make
+%make
 
 #cd ..
 # Then build frame buffer counterpart
