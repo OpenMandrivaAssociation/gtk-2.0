@@ -44,7 +44,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.13.7
-Release:        %mkrel 1
+Release:        %mkrel 2
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -53,14 +53,13 @@ Patch4:		gtk+-2.13.1-extra_im.patch
 # (fc) 2.0.6-8mdk fix infinite loop and crash in file selector when / and $HOME are not readable (bug #90)
 Patch5:		gtk+-2.6.9-fileselectorfallback.patch
 # (fc) 2.4.0-2mdk use Ia Ora theme by default if available
-Patch12:	gtk+-2.10.1-defaulttheme.patch
+Patch12:	gtk+-2.13.7-defaulttheme.patch
 # (gb) 2.4.4-2mdk handle biarch
 Patch13:	gtk+-2.2.4-lib64.patch
 # (fc) 2.11.6-6mdv prevent Flash to crash with glib 2.12 (GNOME bug #463773) (Jan de Groot)
 Patch20:	gtk+-2.11.6-preventflashcrash.patch
-# (mk) rename Uzbek translations to match mdv-2008.0 locales-uz (Mdv bug #33003)	 
-# gw remove this in 2008.1 once locales-uz was updated
-Patch22:        gtk+-2.12.1-fix-uz-pos.patch
+# (fc) 2.13.7-2mdv fix window reparenting regression (Mdv bug #42487) (GNOME bug #548993)
+Patch21:	gtk+-2.13.7-reparent.patch
 
 Conflicts:	perl-Gtk2 < 1.113
 
@@ -258,15 +257,13 @@ Gail is the GNOME Accessibility Implementation Library
 %patch12 -p1 -b .defaulttheme
 %patch13 -p1 -b .lib64
 %patch20 -p1 -b .preventflashcrash
-%if %mdkversion < 200810
-%patch22 -p1 -b .fix-uz-pos
-%endif
+%patch21 -p1 -b .reparent
 
 #needed by patches 4
 aclocal-1.7
 automake-1.7
 
-#needed by patches 13 & 22
+#needed by patches 13 
 autoheader
 autoconf
 
