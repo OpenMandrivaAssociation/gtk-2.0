@@ -44,7 +44,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.14.3
-Release:        %mkrel 1
+Release:        %mkrel 2
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
@@ -58,6 +58,8 @@ Patch12:	gtk+-2.13.7-defaulttheme.patch
 Patch13:	gtk+-2.2.4-lib64.patch
 # (fc) 2.11.6-6mdv prevent Flash to crash with glib 2.12 (GNOME bug #463773) (Jan de Groot)
 Patch20:	gtk+-2.11.6-preventflashcrash.patch
+# (fc) 2.14.3-2mdv various fixes from SVN
+Patch21:	gtk+-2.14.3-svnfixes.patch
 
 Conflicts:	perl-Gtk2 < 1.113
 
@@ -255,6 +257,7 @@ Gail is the GNOME Accessibility Implementation Library
 %patch12 -p1 -b .defaulttheme
 %patch13 -p1 -b .lib64
 %patch20 -p1 -b .preventflashcrash
+%patch21 -p1 -b .svnfixes
 
 #needed by patches 4
 aclocal-1.7
