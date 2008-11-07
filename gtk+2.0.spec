@@ -44,7 +44,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.14.4
-Release:        %mkrel 1
+Release:        %mkrel 2
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	ftp://ftp.gtk.org/pub/gtk/v2.10/%{pkgname}-%{version}.tar.bz2
