@@ -13,13 +13,20 @@
 #      1 = yes
 %define enable_bootstrap 0
 
+# enable_tests: Run test suite in build
+#      0 = no
+#      1 = yes
+%define enable_tests 0
+
 %{?_without_gtkdoc: %{expand: %%define enable_gtkdoc 0}}
 %{?_without_fb: %{expand: %%define build_fb 0}}
 %{?_without_bootstrap: %{expand: %%define enable_bootstrap 0}}
+%{?_without_tests: %{expand: %%define enable_tests 0}}
 
 %{?_with_gtkdoc: %{expand: %%define enable_gtkdoc 1}}
 %{?_with_fb: %{expand: %%define build_fb 1}}
-%{?_with_bootstrap: %{expand: %%define enable_bootstrap 0}}
+%{?_with_bootstrap: %{expand: %%define enable_bootstrap 1}}
+%{?_with_tests: %{expand: %%define enable_tests 1}}
 
 
 # required version of various libraries
@@ -40,6 +47,8 @@
 %define gail_major 18
 %define gail_libname %mklibname gail %gail_major
 %define gaildevelname %mklibname -d gail
+
+%define git_url git://git-mirror.gnome.org/git/gtk+
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
@@ -80,10 +89,12 @@ BuildRequires:  X11-devel
 BuildRequires:  cups-devel
 BuildRequires:  fam-devel
 BuildRequires:  jasper-devel
+%if %enable_tests
 %if %mdkversion <= 200600
 BuildRequires:	XFree86-Xvfb
 %else
 BuildRequires:  x11-server-xvfb
+%endif
 %endif
 %if %enable_gtkdoc
 BuildRequires: gtk-doc >= 0.9 
@@ -268,10 +279,6 @@ automake-1.7
 autoheader
 autoconf
 
-#remove old generate file from srcdir otherwise
-#it is used instead of current generated file
-rm -f gtk/gtkbuiltincache.h
-
 %build
 %ifarch ppc64
 export CFLAGS="$RPM_OPT_FLAGS -mminimal-toc"
@@ -306,6 +313,7 @@ cd ..
 %endif
 
 %check
+%if %enable_tests
 #cd X11-build
 XDISPLAY=$(i=1; while [ -f /tmp/.X$i-lock ]; do i=$(($i+1)); done; echo $i)
 %if %mdkversion <= 200600
@@ -314,10 +322,10 @@ XDISPLAY=$(i=1; while [ -f /tmp/.X$i-lock ]; do i=$(($i+1)); done; echo $i)
 %{_bindir}/Xvfb :$XDISPLAY &
 %endif
 export DISPLAY=:$XDISPLAY
-#make check
+make check
 kill $(cat /tmp/.X$XDISPLAY-lock) ||:
 #cd ..
-
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
