@@ -48,12 +48,12 @@
 %define gail_libname %mklibname gail %gail_major
 %define gaildevelname %mklibname -d gail
 
-%define git_url git://git-mirror.gnome.org/git/gtk+
+%define git_url git://git.gnome.org/gtk+
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.16.0
-Release:        %mkrel 1
+Release:        %mkrel 2
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.bz2
@@ -62,13 +62,11 @@ Patch4:		gtk+-2.13.1-extra_im.patch
 # (fc) 2.0.6-8mdk fix infinite loop and crash in file selector when / and $HOME are not readable (bug #90)
 Patch5:		gtk+-2.6.9-fileselectorfallback.patch
 # (fc) 2.4.0-2mdk use Ia Ora theme by default if available
-Patch12:	gtk+-2.13.7-defaulttheme.patch
+Patch12:	gtk+-defaulttheme.patch
 # (gb) 2.4.4-2mdk handle biarch
 Patch13:	gtk+-2.2.4-lib64.patch
 # (fc) 2.11.6-6mdv prevent Flash to crash with glib 2.12 (GNOME bug #463773) (Jan de Groot)
 Patch20:	gtk+-2.11.6-preventflashcrash.patch
-# (fc) 2.15.4-2mdv fix for driver not supporting randr < 1.2
-Patch22:	gtk+-2.15.4-fixrandr12.patch
 Conflicts:	perl-Gtk2 < 1.113
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
@@ -267,7 +265,6 @@ Gail is the GNOME Accessibility Implementation Library
 %patch12 -p1 -b .defaulttheme
 %patch13 -p1 -b .lib64
 %patch20 -p1 -b .preventflashcrash
-%patch22 -p1 -b .fixrandr12
 
 #needed by patches 4
 aclocal-1.7
