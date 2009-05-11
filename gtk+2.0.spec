@@ -52,8 +52,8 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
-Version:	2.16.1
-Release:        %mkrel 4
+Version:	2.17.0
+Release:        %mkrel 1
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.bz2
@@ -491,7 +491,6 @@ fi
 %{_libdir}/libgdk_pixbuf*.so
 %attr(644,root,root) %{_libdir}/libgdk_pixbuf*.la
 %{_libdir}/pkgconfig/gdk-pixbuf*.pc
-%{_mandir}/man1/*
 
 
 %files -n %{libname_x11}
