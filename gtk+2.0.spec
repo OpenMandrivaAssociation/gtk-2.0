@@ -30,7 +30,7 @@
 
 
 # required version of various libraries
-%define req_glib_version		2.19.7
+%define req_glib_version		2.21.3
 %define req_pango_version		1.20.0
 %define req_atk_version			1.13.0
 %define req_cairo_version		1.6.0
@@ -53,7 +53,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.17.5
-Release:        %mkrel 1
+Release:        %mkrel 2
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.bz2
@@ -65,6 +65,8 @@ Patch5:		gtk+-2.6.9-fileselectorfallback.patch
 Patch12:	gtk+-defaulttheme.patch
 # (gb) 2.4.4-2mdk handle biarch
 Patch13:	gtk+-2.2.4-lib64.patch
+# (fc) various git fixes
+Patch14: 	gtk+-2.17.5-gitfixes.patch
 Conflicts:	perl-Gtk2 < 1.113
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
@@ -262,6 +264,7 @@ Gail is the GNOME Accessibility Implementation Library
 %patch5 -p1 -b .fileselectorfallback
 %patch12 -p1 -b .defaulttheme
 %patch13 -p1 -b .lib64
+%patch14 -p1 -b .gitfixes
 
 #needed by patches 4
 aclocal-1.7
