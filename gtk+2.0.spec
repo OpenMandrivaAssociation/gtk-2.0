@@ -52,8 +52,8 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
-Version:	2.17.7
-Release:        %mkrel 3
+Version:	2.17.8
+Release:        %mkrel 1
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.bz2
@@ -65,8 +65,6 @@ Patch5:		gtk+-2.6.9-fileselectorfallback.patch
 Patch12:	gtk+-defaulttheme.patch
 # (gb) 2.4.4-2mdk handle biarch
 Patch13:	gtk+-2.2.4-lib64.patch
-# (cg) Fix geometry coords: http://git.gnome.org/cgit/gtk+/commit/?id=528546733f1da859cb8041829abe0ae677d9a46d
-Patch14:	gtk+-2.17.7-geometry-coord-offset.patch
 Conflicts:	perl-Gtk2 < 1.113
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
@@ -264,7 +262,6 @@ Gail is the GNOME Accessibility Implementation Library
 %patch5 -p1 -b .fileselectorfallback
 %patch12 -p1 -b .defaulttheme
 %patch13 -p1 -b .lib64
-%patch14 -p1 -b .geometrycoords
 
 #needed by patches 4
 aclocal-1.7
