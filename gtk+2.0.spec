@@ -68,6 +68,8 @@ Patch13:	gtk+-2.2.4-lib64.patch
 # fix blurry jpeg display with libjpeg 7
 # http://bugzilla.gnome.org/show_bug.cgi?id=588740
 Patch14:	gdk-pixbuf-fix-libjpeg-7.patch
+# (pt) fix updating icons in GtkEntry
+Patch15:	gtk+-2.17.9-gtkentry-update-icon.patch
 Conflicts:	perl-Gtk2 < 1.113
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
@@ -267,6 +269,7 @@ Gail is the GNOME Accessibility Implementation Library
 %patch12 -p1 -b .defaulttheme
 %patch13 -p1 -b .lib64
 %patch14 -p1
+%patch15 -p1 -b .gtkentryicon
 
 #needed by patches 4
 aclocal-1.7
