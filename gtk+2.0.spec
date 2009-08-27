@@ -53,7 +53,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.17.9
-Release:        %mkrel 1
+Release:        %mkrel 2
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.bz2
@@ -197,6 +197,7 @@ Group:		System/Libraries
 Provides:	lib%{pkgname}-x11-%{api_version} = %{version}-%{release}
 Provides:	%{name}-backend = %{version}-%{release}
 Requires(post):		%{libname_pixbuf} = %{version}
+Requires: 	%{libname} = %{version}
 Requires:	%{name} >= %{version}-%{release}
 Conflicts:  libgtk+2-devel < 2.0.0
 
