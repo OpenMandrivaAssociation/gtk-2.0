@@ -53,7 +53,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.17.11
-Release:        %mkrel 2
+Release:        %mkrel 3
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.bz2
@@ -61,6 +61,9 @@ Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.t
 #https://bugzilla.gnome.org/show_bug.cgi?id=591583
 #https://qa.mandriva.com/show_bug.cgi?id=52802
 Patch: gtk+-fix-recursing_window_updates.patch
+#gw fix installation error in po/
+#https://qa.mandriva.com/show_bug.cgi?id=53681
+Patch1: gtk+-fix-translation-installation.patch
 # extra IM modules (vietnamese and tamil) -- pablo
 Patch4:		gtk+-2.13.1-extra_im.patch 
 # (fc) 2.0.6-8mdk fix infinite loop and crash in file selector when / and $HOME are not readable (bug #90)
@@ -267,6 +270,7 @@ Gail is the GNOME Accessibility Implementation Library
 %prep
 %setup -n %{pkgname}-%{version} -q
 %patch -p1
+%patch1 -p1
 %patch4 -p1 -b .extra_im
 %patch5 -p1 -b .fileselectorfallback
 %patch12 -p1 -b .defaulttheme
