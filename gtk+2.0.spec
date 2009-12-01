@@ -52,8 +52,8 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
-Version:	2.18.3
-Release:        %mkrel 3
+Version:	2.18.4
+Release:        %mkrel 1
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.bz2
@@ -65,17 +65,8 @@ Patch5:		gtk+-2.6.9-fileselectorfallback.patch
 Patch12:	gtk+-defaulttheme.patch
 # (gb) 2.4.4-2mdk handle biarch
 Patch13:	gtk+-2.2.4-lib64.patch
-# fix blurry jpeg display with libjpeg 7
-# http://bugzilla.gnome.org/show_bug.cgi?id=588740
-Patch14:	gdk-pixbuf-fix-libjpeg-7.patch
 # (fc) 2.18.2-2mdv fix nautilus crash (GNOME bug #596977) (pterjan)
 Patch15:	gtk+-2.18.1-fixnautiluscrash.patch
-# (fc) 2.18.3-3mdv fix toolbutton assert (GNOME bug #299446) (GIT)
-Patch16:	gtk+-2.18.3-toolbutton-assert.patch
-# (fc) 2.18.3-3mdv fix iconview hang (GNOME bug #581150) (GIT)
-Patch17:	gtk+-2.18.3-iconview-hang.patch
-# (fc) 2.18.3-3mdv fix symbolic color parsing (GIT)
-Patch18:	gtk+-2.18.3-symbolic-color-parsing.patch
 
 Conflicts:	perl-Gtk2 < 1.113
 
@@ -275,21 +266,18 @@ Gail is the GNOME Accessibility Implementation Library
 %patch5 -p1 -b .fileselectorfallback
 %patch12 -p1 -b .defaulttheme
 %patch13 -p1 -b .lib64
-%patch14 -p1 -b .jpeg7
 #patch15 -p1 -b .fixnautiluscrash
-%patch16 -p1 -b .toolbutton-assert
-%patch17 -p1 -b .iconview-hang
-%patch18 -p1 -b .symbolic-color-parsing
 
 #needed by patches 4
-aclocal-1.7
-libtoolize --copy --force
-automake-1.7 -a -c
+#aclocal
+#libtoolize --copy --force
+#automake -a -c
 
 #needed by patches 13 
-autoheader
-autoconf
-
+#autoheader
+#autoconf
+gtkdocize
+autoreconf -fi
 %build
 %ifarch ppc64
 export CFLAGS="$RPM_OPT_FLAGS -mminimal-toc"
