@@ -32,7 +32,7 @@
 # required version of various libraries
 %define req_glib_version		2.21.3
 %define req_pango_version		1.20.0
-%define req_atk_version			1.29.2
+%define req_atk_version			1.29.4
 %define req_cairo_version		1.6.0
 
 %define pkgname			gtk+
@@ -52,7 +52,7 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
-Version:	2.19.1
+Version:	2.19.2
 Release:        %mkrel 1
 License:	LGPLv2+
 Group:		System/Libraries
@@ -82,6 +82,7 @@ BuildRequires:	libpng-devel
 BuildRequires:	libtiff-devel
 BuildRequires:  cairo-devel >= %{req_cairo_version}
 BuildRequires:	pango-devel >= %{req_pango_version}
+BuildRequires:  gobject-introspection-devel
 BuildRequires:  automake1.7
 BuildRequires:  X11-devel
 BuildRequires:  cups-devel
@@ -175,6 +176,7 @@ Summary:	Image loading and manipulation library for GTK+
 Group:		System/Libraries
 Provides:	libgdk_pixbuf%{api_version} = %{version}-%{release}
 Requires(post):		libtiff >= 3.6.1
+Conflicts: gir-repository < 0.6.5-4
 
 %description -n %{libname_pixbuf}
 This package contains libraries used by GTK+ to load and handle
@@ -200,6 +202,7 @@ Requires(post):		%{libname_pixbuf} = %{version}
 Requires: 	%{libname} = %{version}
 Requires:	%{name} >= %{version}-%{release}
 Conflicts:  libgtk+2-devel < 2.0.0
+Conflicts: gir-repository < 0.6.5-4
 
 %description -n %{libname_x11}
 This package contains the X11 version of library needed to run
@@ -475,6 +478,8 @@ fi
 %{_libdir}/pkgconfig/gtk+-%{api_version}.pc
 %{_libdir}/pkgconfig/gtk+-unix-print-%{api_version}.pc
 %{_libdir}/*x11*.so
+%_datadir/gir-1.0/Gdk-2.0.gir
+%_datadir/gir-1.0/Gtk-2.0.gir
 %attr(644,root,root) %{_libdir}/*x11*.la
 %{_libdir}/pkgconfig/*x11*
 
@@ -482,6 +487,7 @@ fi
 %files -n %{libname_pixbuf}
 %defattr(-, root, root)
 %{_libdir}/libgdk_pixbuf*.so.*
+%_libdir/girepository-1.0/GdkPixbuf-2.0.typelib
 %dir %{_libdir}/gtk-%{api_version}/%{binary_version}.*/loaders
 %{_libdir}/gtk-%{api_version}/%{binary_version}.*/loaders/*.so
 %{_libdir}/gtk-%{api_version}/bin/gdk-pixbuf-query-loaders
@@ -494,6 +500,7 @@ fi
 %{_bindir}/gdk-pixbuf-csource
 %dir %{_includedir}/gtk-%{api_version}
 %{_includedir}/gtk-%{api_version}/gdk-pixbuf*
+%_datadir/gir-1.0/GdkPixbuf-2.0.gir
 %{_libdir}/libgdk_pixbuf*.so
 %attr(644,root,root) %{_libdir}/libgdk_pixbuf*.la
 %{_libdir}/pkgconfig/gdk-pixbuf*.pc
@@ -502,6 +509,7 @@ fi
 %files -n %{libname_x11}
 %defattr(-, root, root)
 %{_libdir}/*x11*.so.*
+%_libdir/girepository-1.0/Gtk-2.0.typelib
 
 %if %build_fb
 %files -n %{libname_linuxfb}
