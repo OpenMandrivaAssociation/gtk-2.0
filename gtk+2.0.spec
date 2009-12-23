@@ -53,7 +53,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.19.2
-Release:        %mkrel 1
+Release:        %mkrel 2
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.bz2
@@ -67,6 +67,8 @@ Patch12:	gtk+-defaulttheme.patch
 Patch13:	gtk+-2.2.4-lib64.patch
 # (fc) 2.18.2-2mdv fix nautilus crash (GNOME bug #596977) (pterjan)
 Patch15:	gtk+-2.18.1-fixnautiluscrash.patch
+# upstream patch, fixes crash in sylpheed (teuf)
+Patch16:	gtk+-2.19.2-fix-sylpheed-crash.patch
 
 Conflicts:	perl-Gtk2 < 1.113
 
@@ -270,6 +272,7 @@ Gail is the GNOME Accessibility Implementation Library
 %patch12 -p1 -b .defaulttheme
 %patch13 -p1 -b .lib64
 #patch15 -p1 -b .fixnautiluscrash
+%patch16 -p1 -b .sylpheedcrash
 
 #needed by patches 4
 #aclocal
