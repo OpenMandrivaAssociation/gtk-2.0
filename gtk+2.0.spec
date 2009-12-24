@@ -53,7 +53,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.19.2
-Release:        %mkrel 2
+Release:        %mkrel 3
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.bz2
@@ -306,6 +306,9 @@ export CPPFLAGS="-DGTK_COMPILATION"
 %endif
 
 %make
+cd gdk
+make Gdk-2.0.typelib
+cd ..
 
 #cd ..
 # Then build frame buffer counterpart
@@ -350,6 +353,7 @@ cd ..
 
 #cd X11-build
 %makeinstall_std mandir=%{_mandir} RUN_QUERY_IMMODULES_TEST=false RUN_QUERY_LOADER_TEST=false
+cp gdk/Gdk-2.0.typelib %buildroot%_libdir/girepository-1.0/
 
 #cd ..
 
@@ -512,6 +516,7 @@ fi
 %files -n %{libname_x11}
 %defattr(-, root, root)
 %{_libdir}/*x11*.so.*
+%_libdir/girepository-1.0/Gdk-2.0.typelib
 %_libdir/girepository-1.0/Gtk-2.0.typelib
 
 %if %build_fb
