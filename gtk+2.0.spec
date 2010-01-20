@@ -308,7 +308,8 @@ export CPPFLAGS="-DGTK_COMPILATION"
 	--enable-gtk-doc=no
 %endif
 
-%make
+#gw parallel make fails in 2.19.3-3mdv
+make
 cd gdk
 make Gdk-2.0.typelib
 cd ..
