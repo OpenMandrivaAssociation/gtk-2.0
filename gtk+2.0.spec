@@ -53,7 +53,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.19.3
-Release:        %mkrel 2
+Release:        %mkrel 3
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.bz2
@@ -69,7 +69,9 @@ Patch13:	gtk+-2.2.4-lib64.patch
 Patch15:	gtk+-2.18.1-fixnautiluscrash.patch
 # (pt) 2.19.3-2 GNOME bug #607269
 Patch16:	gtk+-2.19.3-gtklabel-clearattrs.patch
-
+#gw from git, fix https://bugzilla.gnome.org/show_bug.cgi?id=607508
+# (cannot drag windows in the pager)
+Patch17:	gtk+-2.19.3-when-native-window-requests-button-presses-request-other-button-related-events.patch
 Conflicts:	perl-Gtk2 < 1.113
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
@@ -273,6 +275,7 @@ Gail is the GNOME Accessibility Implementation Library
 %patch13 -p1 -b .lib64
 #patch15 -p1 -b .fixnautiluscrash
 %patch16 -p1 -b .attrs
+%patch17 -p1
 
 #needed by patches 4
 #aclocal
