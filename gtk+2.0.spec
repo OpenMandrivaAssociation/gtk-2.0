@@ -53,7 +53,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.19.4
-Release:        %mkrel 1
+Release:        %mkrel 2
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.bz2
@@ -82,7 +82,6 @@ BuildRequires:	libtiff-devel
 BuildRequires:  cairo-devel >= %{req_cairo_version}
 BuildRequires:	pango-devel >= %{req_pango_version}
 BuildRequires:  gobject-introspection-devel
-BuildRequires:  automake1.7
 BuildRequires:  X11-devel
 BuildRequires:  cups-devel
 BuildRequires:  fam-devel
@@ -270,16 +269,10 @@ Gail is the GNOME Accessibility Implementation Library
 %patch13 -p1 -b .lib64
 #patch15 -p1 -b .fixnautiluscrash
 
-#needed by patches 4
-#aclocal
-#libtoolize --copy --force
-#automake -a -c
-
-#needed by patches 13 
-#autoheader
-#autoconf
-gtkdocize
+#needed by patches 4 & 13
+libtoolize --copy --force
 autoreconf -fi
+
 %build
 %ifarch ppc64
 export CFLAGS="$RPM_OPT_FLAGS -mminimal-toc"
