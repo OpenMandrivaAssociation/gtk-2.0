@@ -53,7 +53,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.20.0
-Release:        %mkrel 2
+Release:        %mkrel 3
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.bz2
@@ -77,6 +77,10 @@ Patch18:	gtk+-2.20.0-fresh-tooltips.patch
 Patch19:	gtk+-2.20.0-tooltip-positioning.patch
 # (fc) 2.20.0-2mdv allow window dragging toolbars / menubar (GNOME bug #611313)
 Patch20:	gtk+-2.20.0-window-dragging.patch
+# (fc) 2.20.0-3mdv allow specifying icon padding for tray icon (GNOME bug #583273) (Fedora)
+Patch21:	gtk+-2.20.0-icon-padding.patch
+# (fc) 2.20.0-3mdv use proper screen for getshape (GNOME bug #615853) (GIT)
+Patch22:	gtk+-2.20.0-proper-screen.patch
 
 Conflicts:	perl-Gtk2 < 1.113
 
@@ -284,6 +288,8 @@ Gail is the GNOME Accessibility Implementation Library
 %patch18 -p1 -b .fresh-tooltips
 %patch19 -p1 -b .tooltip-positioning
 %patch20 -p1 -b .window-dragging
+%patch21 -p1 -b .icon-padding
+%patch22 -p1 -b .proper-screen
 
 #needed by patches 4 & 13
 autoreconf -fi
