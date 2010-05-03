@@ -52,8 +52,8 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
-Version:	2.20.0
-Release:        %mkrel 5
+Version:	2.20.1
+Release:        %mkrel 1
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.bz2
@@ -67,10 +67,6 @@ Patch12:	gtk+-defaulttheme.patch
 Patch13:	gtk+-2.2.4-lib64.patch
 # (fc) 2.18.2-2mdv fix nautilus crash (GNOME bug #596977) (pterjan)
 Patch15:	gtk+-2.18.1-fixnautiluscrash.patch
-# (fc) 2.20.0-2mdv fix support for Tracker 0.8 (GIT)
-Patch16:	gtk+-2.20.0-tracker08.patch
-# (fc) 2.20.0-2mdv delay search startup (GIT)
-Patch17:	gtk+-2.20.0-delay-search.patch
 # (fc) 2.20.0-2mdv improve tooltip appareance (GNOME bug #599617) (Fedora)
 Patch18:	gtk+-2.20.0-fresh-tooltips.patch
 # (fc) 2.20.0-2mdv improve tooltip positioning (GNOME bug #599618) (Fedora)
@@ -283,8 +279,6 @@ Gail is the GNOME Accessibility Implementation Library
 %patch12 -p1 -b .defaulttheme
 %patch13 -p1 -b .lib64
 #patch15 -p1 -b .fixnautiluscrash
-%patch16 -p1 -b .tracker08
-%patch17 -p1 -b .delay-search
 %patch18 -p1 -b .fresh-tooltips
 %patch19 -p1 -b .tooltip-positioning
 %patch20 -p1 -b .window-dragging
