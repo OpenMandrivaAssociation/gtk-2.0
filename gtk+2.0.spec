@@ -211,7 +211,8 @@ Gail is the GNOME Accessibility Implementation Library
 %patch4 -p1 -b .extra_im
 %patch5 -p1 -b .fileselectorfallback
 %patch12 -p1 -b .defaulttheme
-%patch13 -p1 -b .lib64
+#gw disabled for bootstrapping
+##%patch13 -p1 -b .lib64
 #patch15 -p1 -b .fixnautiluscrash
 %patch18 -p1 -b .fresh-tooltips
 #%patch19 -p1 -b .tooltip-positioning
