@@ -1,7 +1,7 @@
 # enable_gtkdoc: Toggle if gtk-doc files should be rebuilt.
 #      0 = no
 #      1 = yes
-%define enable_gtkdoc 1
+%define enable_gtkdoc 0
 
 # enable_bootstrap: Toggle if bootstrapping package
 #      0 = no
