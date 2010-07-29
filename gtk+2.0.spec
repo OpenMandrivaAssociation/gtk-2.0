@@ -219,7 +219,8 @@ Gail is the GNOME Accessibility Implementation Library
 %patch21 -p1 -b .icon-padding
 
 #needed by patches 4 & 13
-autoreconf -fi
+#gw disabled for bootstrapping
+#autoreconf -fi
 
 %build
 %ifarch ppc64
