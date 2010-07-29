@@ -365,11 +365,11 @@ fi
 %{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-ti-et.so
 %{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-viqr.so
 %{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-xim.so
-
-%{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-tamilvp-tsc.so
-%{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-tamilvp-uni.so
-%{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-telex.so
-%{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-vni.so
+#gw disabled for bootstrapping
+#%{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-tamilvp-tsc.so
+#%{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-tamilvp-uni.so
+#%{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-telex.so
+#%{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-vni.so
 %dir %{_libdir}/gtk-%{api_version}/%{binary_version}.*/engines
 %{_libdir}/gtk-%{api_version}/%{binary_version}.*/engines/*.so
 %{_libdir}/gtk-%{api_version}/%{binary_version}.*/printbackends/*.so
