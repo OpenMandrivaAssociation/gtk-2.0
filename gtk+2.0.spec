@@ -1,7 +1,7 @@
 # enable_gtkdoc: Toggle if gtk-doc files should be rebuilt.
 #      0 = no
 #      1 = yes
-%define enable_gtkdoc 0
+%define enable_gtkdoc 1
 
 # enable_bootstrap: Toggle if bootstrapping package
 #      0 = no
@@ -46,7 +46,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.21.5
-Release:        %mkrel 1
+Release:        %mkrel 2
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.bz2
@@ -212,7 +212,7 @@ Gail is the GNOME Accessibility Implementation Library
 %patch5 -p1 -b .fileselectorfallback
 %patch12 -p1 -b .defaulttheme
 #gw disabled for bootstrapping
-##%patch13 -p1 -b .lib64
+%patch13 -p1 -b .lib64
 #patch15 -p1 -b .fixnautiluscrash
 %patch18 -p1 -b .fresh-tooltips
 #%patch19 -p1 -b .tooltip-positioning
@@ -221,7 +221,7 @@ Gail is the GNOME Accessibility Implementation Library
 
 #needed by patches 4 & 13
 #gw disabled for bootstrapping
-#autoreconf -fi
+autoreconf -fi
 
 %build
 %ifarch ppc64
@@ -237,7 +237,6 @@ export CFLAGS=`echo $RPM_OPT_FLAGS | sed -e 's/-fomit-frame-pointer//g'`
 
 #CONFIGURE_TOP=.. 
 export CPPFLAGS="-DGTK_COMPILATION"
-%define _disable_ld_no_undefined 1
 #	--with-included-immodules=yes \
 %configure2_5x --enable-xinerama \
 	--with-xinput=xfree \
@@ -245,12 +244,10 @@ export CPPFLAGS="-DGTK_COMPILATION"
 	--enable-gtk-doc=no
 %endif
 
-#gw parallel make fails in 2.19.3-3mdv
-make
+%make
 cd gdk
-make Gdk-2.0.typelib
+%make Gdk-2.0.typelib
 cd ..
-
 
 %check
 %if %enable_tests
@@ -365,11 +362,10 @@ fi
 %{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-ti-et.so
 %{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-viqr.so
 %{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-xim.so
-#gw disabled for bootstrapping
-#%{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-tamilvp-tsc.so
-#%{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-tamilvp-uni.so
-#%{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-telex.so
-#%{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-vni.so
+%{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-tamilvp-tsc.so
+%{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-tamilvp-uni.so
+%{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-telex.so
+%{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/im-vni.so
 %dir %{_libdir}/gtk-%{api_version}/%{binary_version}.*/engines
 %{_libdir}/gtk-%{api_version}/%{binary_version}.*/engines/*.so
 %{_libdir}/gtk-%{api_version}/%{binary_version}.*/printbackends/*.so
