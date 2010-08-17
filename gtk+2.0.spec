@@ -45,8 +45,8 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
-Version:	2.21.5
-Release:        %mkrel 2
+Version:	2.21.6
+Release:        %mkrel 1
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.bz2
@@ -245,9 +245,6 @@ export CPPFLAGS="-DGTK_COMPILATION"
 %endif
 
 %make
-cd gdk
-%make Gdk-2.0.typelib
-cd ..
 
 %check
 %if %enable_tests
@@ -269,7 +266,7 @@ rm -rf $RPM_BUILD_ROOT
 
 #cd X11-build
 %makeinstall_std mandir=%{_mandir} RUN_QUERY_IMMODULES_TEST=false RUN_QUERY_LOADER_TEST=false
-cp gdk/Gdk-2.0.typelib %buildroot%_libdir/girepository-1.0/
+
 
 #cd ..
 
@@ -388,6 +385,7 @@ fi
 %{_libdir}/pkgconfig/gtk+-unix-print-%{api_version}.pc
 %{_libdir}/*x11*.so
 %_datadir/gir-1.0/Gdk-2.0.gir
+%_datadir/gir-1.0/GdkX11-2.0.gir
 %_datadir/gir-1.0/Gtk-2.0.gir
 %attr(644,root,root) %{_libdir}/*x11*.la
 %{_libdir}/pkgconfig/*x11*
@@ -396,6 +394,7 @@ fi
 %defattr(-, root, root)
 %{_libdir}/*x11*.so.*
 %_libdir/girepository-1.0/Gdk-2.0.typelib
+%_libdir/girepository-1.0/GdkX11-2.0.typelib
 %_libdir/girepository-1.0/Gtk-2.0.typelib
 
 %files -n %gail_libname
