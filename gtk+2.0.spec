@@ -45,14 +45,11 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
-Version:	2.21.7
-Release:        %mkrel 2
+Version:	2.21.8
+Release:        %mkrel 1
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.bz2
-Patch0: gtk+-gobject-introspection-0.9.5.patch
-Patch1: gtk+-update-gdkkeysyms.patch
-Patch2: gtk+-prefix-keys.patch
 # extra IM modules (vietnamese and tamil) -- pablo
 #gw TODO, needs to be fixed for 2.21.3
 Patch4:		gtk+-2.13.1-extra_im.patch 
@@ -211,9 +208,6 @@ Gail is the GNOME Accessibility Implementation Library
 
 %prep
 %setup -n %{pkgname}-%{version} -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
 %patch4 -p1 -b .extra_im
 %patch5 -p1 -b .fileselectorfallback
 %patch12 -p1 -b .defaulttheme
