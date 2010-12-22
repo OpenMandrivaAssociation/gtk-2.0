@@ -83,7 +83,16 @@ BuildRequires:  cairo-devel >= %{req_cairo_version}
 BuildRequires:	pango-devel >= %{req_pango_version}
 BuildRequires:  gobject-introspection-devel >= 0.9.5
 BuildRequires:	libgdk_pixbuf2.0-devel >= %req_gdk_pixbuf_version
-BuildRequires:  X11-devel
+BuildRequires:  libx11-devel
+BuildRequires:	libxext-devel
+BuildRequires:	libxrender-devel
+BuildRequires:	libxcomposite-devel
+BuildRequires:	libxcursor-devel
+BuildRequires:	libxdamage-devel
+BuildRequires:	libxfixes-devel
+BuildRequires:	libxi-devel
+BuildRequires:	libxinerama-devel
+BuildRequires:	libxrandr-devel
 BuildRequires:  cups-devel
 BuildRequires:  fam-devel
 %if %enable_tests
