@@ -77,7 +77,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 URL:		http://www.gtk.org
 Requires:	common-licenses
 BuildRequires:	gettext-devel
-BuildRequires:  libglib2.0-devel >= %{req_glib_version}
+BuildRequires:  libglib2-devel >= %{req_glib_version}
 BuildRequires:	libatk1.0-devel >= %{req_atk_version}
 BuildRequires:  cairo-devel >= %{req_cairo_version}
 BuildRequires:	pango-devel >= %{req_pango_version}
