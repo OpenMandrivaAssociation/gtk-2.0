@@ -23,9 +23,9 @@
 
 
 # required version of various libraries
-%define req_glib_version		2.25.8
+%define req_glib_version		2.25.10
 %define req_pango_version		1.20.0
-%define req_atk_version			1.29.4
+%define req_atk_version			1.29.2
 %define req_cairo_version		1.6.0
 %define req_gdk_pixbuf_version		2.21.0
 
@@ -41,12 +41,10 @@
 %define gail_libname %mklibname gail %gail_major
 %define gaildevelname %mklibname -d gail
 
-%define git_url git://git.gnome.org/gtk+
-
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.22.1
-Release:        %mkrel 2
+Release:        %mkrel 3
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.bz2
@@ -55,7 +53,7 @@ Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.t
 Patch4:		gtk+-2.13.1-extra_im.patch 
 # (fc) 2.0.6-8mdk fix infinite loop and crash in file selector when / and $HOME are not readable (bug #90)
 Patch5:		gtk+-2.6.9-fileselectorfallback.patch
-# (fc) 2.4.0-2mdk use Ia Ora theme by default if available
+# (fwang) 2.22.1-3 use Qtcurve theme by default if available
 Patch12:	gtk+-defaulttheme.patch
 # (gb) 2.4.4-2mdk handle biarch
 Patch13:	gtk+-2.2.4-lib64.patch
@@ -111,7 +109,7 @@ BuildRequires: texinfo
 BuildRequires: fonts-ttf-dejavu
 %if !%{enable_bootstrap}
 Suggests: xdg-user-dirs-gtk
-Suggests: ia_ora-gnome
+Suggests: qtcurve-gtk2
 %endif
 Requires: %{libname} = %{version}
 Provides:	%{pkgname}2 = %{version}-%{release}
@@ -142,7 +140,7 @@ Conflicts:  gtk-engines2 <= 2.2.0-7mdk
 Conflicts:  %{libname_x11} < 2.10.3-2mdv2007.0
 Requires(post): 	%{libname_x11} = %{version}
 %if !%{enable_bootstrap}
-Suggests: %{_lib}ia_ora-gnome
+Suggests: %{_lib}qtcurve-gtk2
 %endif
 
 %description -n %{libname}
@@ -198,7 +196,6 @@ Summary:	GNOME Accessibility Implementation Library
 Group:		System/Libraries
 Provides:	libgail = %{version}-%{release}
 Conflicts:	gail < 1.9.4-2mdv
-
 
 %description -n %{gail_libname}
 Gail is the GNOME Accessibility Implementation Library
