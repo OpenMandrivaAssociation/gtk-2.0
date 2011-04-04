@@ -44,7 +44,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.22.1
-Release:        %mkrel 3
+Release:        %mkrel 4
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.bz2
@@ -325,6 +325,12 @@ if [ "$1" = "2" ]; then
   fi
 fi
 
+%{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version} > %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
+
+%triggerin -n %{libname} -- %{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/*.so
+%{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version} > %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
+
+%triggerpostun -n %{libname} -- %{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/*.so
 %{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version} > %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
 
 %post 
