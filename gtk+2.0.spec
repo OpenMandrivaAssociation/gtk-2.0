@@ -245,10 +245,7 @@ export CFLAGS=`echo $RPM_OPT_FLAGS | sed -e 's/-fomit-frame-pointer//g'`
 export CPPFLAGS="-DGTK_COMPILATION"
 #	--with-included-immodules=yes \
 %configure2_5x --enable-xinerama \
-	--with-xinput=xfree \
-%if !%enable_gtkdoc
-	--enable-gtk-doc=no
-%endif
+	--with-xinput=xfree
 
 %make
 
