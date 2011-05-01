@@ -44,7 +44,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.24.4
-Release:        %mkrel 1
+Release:        %mkrel 2
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.bz2
@@ -109,7 +109,7 @@ BuildRequires: texinfo
 BuildRequires: fonts-ttf-dejavu
 %if !%{enable_bootstrap}
 Suggests: xdg-user-dirs-gtk
-Suggests: qtcurve-gtk2
+Suggests: elementary-theme
 %endif
 Requires: %{libname} = %{version}
 Provides:	%{pkgname}2 = %{version}-%{release}
@@ -140,7 +140,7 @@ Conflicts:  gtk-engines2 <= 2.2.0-7mdk
 Conflicts:  %{libname_x11} < 2.10.3-2mdv2007.0
 Requires(post): 	%{libname_x11} = %{version}
 %if !%{enable_bootstrap}
-Suggests: %{_lib}qtcurve-gtk2
+Suggests: %{_lib}gtk-aurora-engine
 %endif
 
 %description -n %{libname}
