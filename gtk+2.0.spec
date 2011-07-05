@@ -44,7 +44,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.24.5
-Release:        %mkrel 1
+Release:        %mkrel 2
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.xz
@@ -116,6 +116,9 @@ Provides:	%{pkgname}2 = %{version}-%{release}
 Obsoletes:	%{pkgname}2
 Provides:	gail = %version-%release
 Obsoletes:	gail
+#(proyvind): to ensure we have g_malloc0_n & g_malloc_n (required by trigger)
+#            provided by the ABI
+Conflicts:	glib2 < 2.24
 
 %description
 The gtk+ package contains the GIMP ToolKit (GTK+), a library for creating
@@ -138,6 +141,9 @@ Requires:   libpango1.0 >= %{req_pango_version}
 Conflicts:  libgnomeui2_0 <= 2.0.5
 Conflicts:  gtk-engines2 <= 2.2.0-7mdk
 Conflicts:  %{libname_x11} < 2.10.3-2mdv2007.0
+#(proyvind): to ensure we have g_malloc0_n & g_malloc_n (required by trigger)
+#            provided by the ABI
+Conflicts:	glib2 < 2.24
 Requires(post): 	%{libname_x11} = %{version}
 %if !%{enable_bootstrap}
 Suggests: %{_lib}gtk-aurora-engine
