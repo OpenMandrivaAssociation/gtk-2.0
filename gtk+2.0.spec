@@ -43,8 +43,8 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
-Version:	2.24.5
-Release:        %mkrel 3
+Version:	2.24.6
+Release:        %mkrel 1
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.xz
@@ -67,9 +67,6 @@ Patch19:	gtk+-2.20.0-tooltip-positioning.patch
 Patch20:	gtk+-2.20.0-window-dragging.patch
 # (fc) 2.20.0-3mdv allow specifying icon padding for tray icon (GNOME bug #583273) (Fedora)
 Patch21:	gtk+-2.20.0-icon-padding.patch
-# https://qa.mandriva.com/show_bug.cgi?id=63584
-# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=633864
-Patch22:	gtk+-gdk-make-background-changes-queue-a-repaint.patch
 Conflicts:	perl-Gtk2 < 1.113
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
@@ -232,7 +229,6 @@ Gail is the GNOME Accessibility Implementation Library
 #%patch19 -p1 -b .tooltip-positioning
 %patch20 -p1 -b .window-dragging
 %patch21 -p1 -b .icon-padding
-%patch22 -p1 -R
 
 #needed by patches 4 & 13
 #gw disable it for bootstrapping
