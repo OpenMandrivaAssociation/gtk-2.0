@@ -43,8 +43,8 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
-Version:	2.24.6
-Release:        %mkrel 2
+Version:	2.24.7
+Release:        %mkrel 1
 License:	LGPLv2+
 Group:		System/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%pkgname/%{pkgname}-%{version}.tar.xz
@@ -64,7 +64,7 @@ Patch18:	gtk+-2.21.1-fresh-tooltips.patch
 # (fc) 2.20.0-2mdv improve tooltip positioning (GNOME bug #599618) (Fedora)
 Patch19:	gtk+-2.20.0-tooltip-positioning.patch
 # (fc) 2.20.0-2mdv allow window dragging toolbars / menubar (GNOME bug #611313)
-Patch20:	gtk+-2.20.0-window-dragging.patch
+Patch20:	gtk+-2.24.7-window-dragging.patch
 # (fc) 2.20.0-3mdv allow specifying icon padding for tray icon (GNOME bug #583273) (Fedora)
 Patch21:	gtk+-2.20.0-icon-padding.patch
 Conflicts:	perl-Gtk2 < 1.113
