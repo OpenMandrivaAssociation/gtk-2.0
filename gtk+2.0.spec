@@ -93,11 +93,7 @@ BuildRequires:	libxrandr-devel
 BuildRequires:  cups-devel
 BuildRequires:  fam-devel
 %if %enable_tests
-%if %mdkversion <= 200600
-BuildRequires:	XFree86-Xvfb
-%else
 BuildRequires:  x11-server-xvfb
-%endif
 %endif
 %if %enable_gtkdoc
 BuildRequires: gtk-doc >= 0.9 
@@ -315,14 +311,6 @@ perl -pi -e "s|/usr/usr/%{_lib}|%{_libdir}|g" %{buildroot}%{_libdir}/*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%if %mdkversion < 200900
-%post -n %{libname_x11} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname_x11} -p /sbin/ldconfig
-%endif
 
 %post -n %{libname}
 if [ "$1" = "2" ]; then
