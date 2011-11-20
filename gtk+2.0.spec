@@ -310,6 +310,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules
   $RPM_BUILD_ROOT%{_libdir}/gtk-%{api_version}/%{binary_version}.*/printbackends/*.la \
   $RPM_BUILD_ROOT%{_libdir}/gtk-2.0/modules/*.la
 
+# remove some quite annoying /usr/usr
+perl -pi -e "s|/usr/usr/%{_lib}|%{_libdir}|g" %{buildroot}%{_libdir}/*.la
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
