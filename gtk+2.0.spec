@@ -1,4 +1,4 @@
-%define enable_gtkdoc 0
+%define enable_gtkdoc 1
 %define enable_bootstrap 0
 %define enable_tests 0
 
@@ -46,16 +46,17 @@ Patch20:	gtk+-2.24.7-window-dragging.patch
 # (fc) 2.20.0-3mdv allow specifying icon padding for tray icon (GNOME bug #583273) (Fedora)
 Patch21:	gtk+-2.20.0-icon-padding.patch
 
-BuildRequires:  cups-devel
-BuildRequires:  fam-devel
+BuildRequires:	cups-devel
+BuildRequires:	fam-devel
 BuildRequires:	gettext-devel
 BuildRequires:	pkgconfig(atk) >= 1.29.2
-BuildRequires:  pkgconfig(cairo) >= 1.6.0
+BuildRequires:	pkgconfig(cairo) >= 1.6.0
 BuildRequires:	pkgconfig(gdk-pixbuf-2.0) >= 2.21.0
-BuildRequires:  pkgconfig(glib-2.0) >= 2.25.10
-BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 0.9.5
+BuildRequires:	pkgconfig(glib-2.0) >= 2.25.10
+BuildRequires:	pkgconfig(gobject-introspection-1.0) >= 0.9.5
 BuildRequires:	pkgconfig(pango) >= 1.20.0
-BuildRequires:  pkgconfig(x11)
+BuildRequires:	pkgconfig(pangocairo) >= 1.20.0
+BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xcomposite)
 BuildRequires:	pkgconfig(xcursor)
 BuildRequires:	pkgconfig(xdamage)
@@ -75,11 +76,14 @@ BuildRequires: gtk-doc >= 0.9
 BuildRequires: sgml-tools
 BuildRequires: texinfo
 %endif
-
+Requires:	%{name}-common = %{version}-%{release}
 %if !%{enable_bootstrap}
 Suggests: xdg-user-dirs-gtk
 Suggests: elementary-theme
 %endif
+Provides:   gtk2 = %{version}-%{release}
+Provides:	%{pkgname}2 = %{version}-%{release}
+Obsoletes:	%{pkgname}2
 #(proyvind): to ensure we have g_malloc0_n & g_malloc_n (required by trigger)
 #            provided by the ABI
 Conflicts:	glib2 < 2.24
@@ -94,28 +98,33 @@ program, but is now used by several other programs as well.
 If you are planning on using the GIMP or another program that uses GTK+,
 you'll need to have the gtk+ package installed.
 
+%package common
+Summary:	%{summary}
+Group:		%{group}
+BuildArch:	noarch
+Conflicts:	%{name} <= 2.24.8-2
+
+%description common
+This package contains the common files for the GTK+2.0 graphical user interface.
+
 %package -n %{libname}
 Summary:	%{summary}
 Group:		%{group}
 Requires:	%{name} = %{version}-%{release}
 Provides:	lib%{pkgname}2 = %{version}-%{release}
 Provides:	lib%{name} = %{version}-%{release}
-Provides:   gtk2 = %{version}-%{release}
-Provides:	%{pkgname}2 = %{version}-%{release}
-Obsoletes:	%{pkgname}2
 %define oldname %mklibname %{pkgname} %{api_version} %{lib_major}
 %rename %{oldname}
 #(proyvind): to ensure we have g_malloc0_n & g_malloc_n (required by trigger)
 #            provided by the ABI
 Conflicts:	glib2 < 2.24
-Conflicts:	%{name} <= 2.24.8-2
 %if !%{enable_bootstrap}
 Suggests: %{_lib}gtk-aurora-engine
 %endif
 
 %description -n %{libname}
-This package contains the inmodules, engine and printbackend libraries for %{name} to
-function properly.
+This package contains the immodules, engines and printbackends libraries 
+for %{name} to function properly.
 
 %package -n %{develname}
 Summary:	Development files for GTK+ (GIMP ToolKit) applications
@@ -258,16 +267,18 @@ fi
 if [ -x %{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version} ]; then %{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version} > %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
 fi
 
-%files -f gtk20.lang
+%files
 %doc README
+%{_bindir}/gtk-query-immodules-%{api_version}
+%{_bindir}/gtk-update-icon-cache
+
+%files common -f gtk20.lang
 %{_datadir}/themes
 %dir %{_sysconfdir}/gtk-%{api_version}
 %config(noreplace) %{_sysconfdir}/gtk-%{api_version}/im-multipress.conf
 
 %files -n %{libname}
 %ghost %verify (not md5 mtime size) %config(noreplace) %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
-%{_bindir}/gtk-query-immodules-%{api_version}
-%{_bindir}/gtk-update-icon-cache
 %dir %{_libdir}/gtk-%{api_version}
 %dir %{_libdir}/gtk-%{api_version}/bin
 %{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version}
@@ -275,9 +286,10 @@ fi
 %dir %{_libdir}/gtk-%{api_version}/%{binary_version}
 %dir %{_libdir}/gtk-%{api_version}/%{binary_version}/immodules
 %dir %{_libdir}/gtk-%{api_version}/%{binary_version}/engines
-%{_libdir}/gtk-%{api_version}/%{binary_version}.*/immodules/*.so
-%{_libdir}/gtk-%{api_version}/%{binary_version}.*/engines/*.so
-%{_libdir}/gtk-%{api_version}/%{binary_version}.*/printbackends/*.so
+%dir %{_libdir}/gtk-%{api_version}/%{binary_version}/printbackends
+%{_libdir}/gtk-%{api_version}/%{binary_version}/immodules/*.so
+%{_libdir}/gtk-%{api_version}/%{binary_version}/engines/*.so
+%{_libdir}/gtk-%{api_version}/%{binary_version}/printbackends/*.so
 # from gail lib
 %{_libdir}/gtk-2.0/modules/libferret.so
 %{_libdir}/gtk-2.0/modules/libgail.so
