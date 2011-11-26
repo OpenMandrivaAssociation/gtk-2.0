@@ -155,7 +155,7 @@ programs dynamically linked with gtk+.
 %package -n %{girname}
 Summary:	GObject Introspection interface description for %name
 Group:		System/Libraries
-Requires:	%{libname_x11} = %{version}-%{release}
+Requires:	%{x11name} = %{version}-%{release}
 Conflicts:	%{mklibname %{pkgname}-x11- 2.0 0} <= 2.24.8-2
 Conflicts:	gir-repository < 0.6.5-4
 
