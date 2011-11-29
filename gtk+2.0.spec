@@ -117,7 +117,7 @@ Requires:	%{name} = %{version}-%{release}
 #(proyvind): to ensure we have g_malloc0_n & g_malloc_n (required by trigger)
 #            provided by the ABI
 Conflicts:	glib2 < 2.24
-Conflicts:	 %{libgail} < 2.24.8-2
+Conflicts:	%{libgail} <= 2.24.8-2
 %if !%{enable_bootstrap}
 Suggests: %{_lib}gtk-aurora-engine
 %endif
