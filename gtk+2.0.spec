@@ -8,7 +8,7 @@
 %define lib_major	0
 # this isnt really a true lib pkg, but a modules/plugin pkg
 %define libname		%mklibname %{pkgname} %{api_version}
-%define x11name		%mklibname %{pkgname}-x11- %{api_version} %{lib_major}
+%define libx11		%mklibname %{pkgname}-x11- %{api_version} %{lib_major}
 %define develname	%mklibname -d %{pkgname} %{api_version}
 
 %define gail_major 18
