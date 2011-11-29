@@ -12,7 +12,7 @@
 %define develname	%mklibname -d %{pkgname} %{api_version}
 
 %define gail_major 18
-%define gailname %mklibname gail %{gail_major}
+%define libgail %mklibname gail %{gail_major}
 %define develgail %mklibname -d gail
 
 %define libgir %mklibname gtk-gir %{api_version}
