@@ -20,7 +20,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.24.8
-Release:	3
+Release:	4
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gtk.org
@@ -117,6 +117,7 @@ Requires:	%{name} = %{version}-%{release}
 #(proyvind): to ensure we have g_malloc0_n & g_malloc_n (required by trigger)
 #            provided by the ABI
 Conflicts:	glib2 < 2.24
+Conflicts:	 %{libgail} < 2.24.8-2
 %if !%{enable_bootstrap}
 Suggests: %{_lib}gtk-aurora-engine
 %endif
