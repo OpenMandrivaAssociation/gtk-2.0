@@ -17,6 +17,9 @@
 
 %define libgir		%mklibname gtk-gir %{api_version}
 
+106	%define oldname %mklibname %{pkgname} %{api_version} %{lib_major}
+107	%rename %{oldname}
+
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.24.8
@@ -113,7 +116,8 @@ Summary:	%{summary}
 Group:		%{group}
 Requires:	%{name} = %{version}-%{release}
 Provides:	gtk2-modules = %{version}-%{release}
-%rename		%{_lib}gtk+2.0
+Conflicts:	%{_lib}gtk+2.0_0 < 2.24.8-4
+Conflicts:	%{_lib}gtk+2.0 < 2.24.8-7
 #(proyvind): to ensure we have g_malloc0_n & g_malloc_n (required by trigger)
 #            provided by the ABI
 Conflicts:	glib2 < 2.24
