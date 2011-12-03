@@ -20,7 +20,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.24.8
-Release:	7
+Release:	8
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gtk.org
@@ -113,7 +113,6 @@ Summary:	%{summary}
 Group:		%{group}
 Requires:	%{name} = %{version}-%{release}
 Provides:	gtk2-modules = %{version}-%{release}
-%rename		%{_lib}gtk+2.0_0
 %rename		%{_lib}gtk+2.0
 #(proyvind): to ensure we have g_malloc0_n & g_malloc_n (required by trigger)
 #            provided by the ABI
