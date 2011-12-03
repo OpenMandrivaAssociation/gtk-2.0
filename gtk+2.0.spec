@@ -196,7 +196,7 @@ autoreconf -fi
 
 %build
 # fix crash in nautilus (GNOME bug #596977)
-export CFLAGS=`echo $RPM_OPT_FLAGS | sed -e 's/-fomit-frame-pointer//g'`
+export CFLAGS=`echo %{optflags} | sed -e 's/-fomit-frame-pointer//g'`
 
 #CONFIGURE_TOP=.. 
 export CPPFLAGS="-DGTK_COMPILATION"
@@ -334,4 +334,3 @@ fi
 %{_libdir}/libgailutil.so
 %{_includedir}/gail-1.0/
 %{_libdir}/pkgconfig/gail.pc
-
