@@ -6,21 +6,21 @@
 %define api_version	2.0
 %define binary_version	2.10.0
 %define major		0
-# this isnt really a true lib pkg, but a modules/plugin pkg
-%define modules		%mklibname %{pkgname} %{api_version}
 %define libname		%mklibname %{pkgname} %{api_version} %{major}
 %define develname	%mklibname -d %{pkgname} %{api_version}
+# this isnt really a true lib pkg, but a modules/plugin pkg
+%define modules		%mklibname gtk-modules %{api_version}
 
-%define gail_major 18
-%define libgail %mklibname gail %{gail_major}
-%define develgail %mklibname -d gail
+%define gail_major	18
+%define libgail		%mklibname gail %{gail_major}
+%define develgail	%mklibname -d gail
 
-%define libgir %mklibname gtk-gir %{api_version}
+%define libgir		%mklibname gtk-gir %{api_version}
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.24.8
-Release:	6
+Release:	7
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gtk.org
@@ -112,14 +112,15 @@ This package contains the common files for the GTK+2.0 graphical user interface.
 Summary:	%{summary}
 Group:		%{group}
 Requires:	%{name} = %{version}-%{release}
-%define oldname %mklibname %{pkgname} %{api_version} %{major}
-%rename %{oldname}
+Provides:	gtk2-modules = %{version}-%{release}
+%rename		%{_lib}gtk+2.0_0
+%rename		%{_lib}gtk+2.0
 #(proyvind): to ensure we have g_malloc0_n & g_malloc_n (required by trigger)
 #            provided by the ABI
 Conflicts:	glib2 < 2.24
-Conflicts:	%{libgail} <= 2.24.8-2
+Conflicts:	%{_lib}gail18 < 2.24.8-3
 %if !%{enable_bootstrap}
-Suggests: %{_lib}gtk-aurora-engine
+Suggests:	%{_lib}gtk-aurora-engine
 %endif
 
 %description -n %{modules}
@@ -161,7 +162,8 @@ programs dynamically linked with gtk+.
 Summary:	GObject Introspection interface description for %name
 Group:		System/Libraries
 Requires:	%{libname} = %{version}-%{release}
-Conflicts:	%{mklibname %{pkgname}-x11- 2.0 0} <= 2.24.8-2
+Provides:	gtk2-gir = %{version}-%{release}
+Conflicts:	%{_lib}gtk+-x11-2.0_0 < 2.24.8-3
 Conflicts:	gir-repository < 0.6.5-4
 
 %description -n %{libgir}
