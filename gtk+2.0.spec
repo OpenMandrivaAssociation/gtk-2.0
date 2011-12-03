@@ -20,7 +20,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.24.8
-Release:	4
+Release:	5
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gtk.org
@@ -111,7 +111,6 @@ This package contains the common files for the GTK+2.0 graphical user interface.
 %package -n %{libname}
 Summary:	%{summary}
 Group:		%{group}
-Requires:	%{name} = %{version}-%{release}
 %define oldname %mklibname %{pkgname} %{api_version} %{lib_major}
 %rename %{oldname}
 #(proyvind): to ensure we have g_malloc0_n & g_malloc_n (required by trigger)
@@ -252,18 +251,12 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 # remove some quite annoying /usr/usr
 perl -pi -e "s|/usr/usr/%{_lib}|%{_libdir}|g" %{buildroot}%{_libdir}/*.la
 
+
 %post -n %{libname}
 if [ "$1" = "2" ]; then
   if [ -f %{_sysconfdir}/gtk-%{api_version}/gtk.immodules ]; then
     rm -f %{_sysconfdir}/gtk-%{api_version}/gtk.immodules
   fi
-fi
-# previously part of main post
-if [ -d %{_datadir}/icons ]; then
- for i in `/bin/ls %{_datadir}/icons` ; do 
-  [ -d "%{_datadir}/icons/$i" -a -e "%{_datadir}/icons/$i/icon-theme.cache" -a -e "%{_datadir}/icons/$i/index.theme" ] && gtk-update-icon-cache --force --quiet %{_datadir}/icons/$i
- done
- exit 0
 fi
 
 %{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version} > %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
