@@ -5,10 +5,10 @@
 %define pkgname		gtk+
 %define api_version	2.0
 %define binary_version	2.10.0
-%define lib_major	0
+%define major		0
 # this isnt really a true lib pkg, but a modules/plugin pkg
-%define libname		%mklibname %{pkgname} %{api_version}
-%define libx11		%mklibname %{pkgname}-x11- %{api_version} %{lib_major}
+%define modules		%mklibname %{pkgname} %{api_version}
+%define libname		%mklibname %{pkgname} %{api_version} %{major}
 %define develname	%mklibname -d %{pkgname} %{api_version}
 
 %define gail_major 18
@@ -20,7 +20,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.24.8
-Release:	5
+Release:	6
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gtk.org
@@ -108,10 +108,11 @@ Conflicts:	%{name} <= 2.24.8-2
 This package contains the common files for the GTK+2.0 graphical user interface.
 
 #--------------------------------------------------------------------
-%package -n %{libname}
+%package -n %{modules}
 Summary:	%{summary}
 Group:		%{group}
-%define oldname %mklibname %{pkgname} %{api_version} %{lib_major}
+Requires:	%{name} = %{version}-%{release}
+%define oldname %mklibname %{pkgname} %{api_version} %{major}
 %rename %{oldname}
 #(proyvind): to ensure we have g_malloc0_n & g_malloc_n (required by trigger)
 #            provided by the ABI
@@ -121,7 +122,7 @@ Conflicts:	%{libgail} <= 2.24.8-2
 Suggests: %{_lib}gtk-aurora-engine
 %endif
 
-%description -n %{libname}
+%description -n %{modules}
 This package contains the immodules, engines and printbackends libraries 
 for %{name} to function properly.
 
@@ -129,7 +130,7 @@ for %{name} to function properly.
 %package -n %{develname}
 Summary:	Development files for GTK+ (GIMP ToolKit) applications
 Group:		Development/GNOME and GTK+
-Requires:	%{libx11} = %{version}-%{release}
+Requires:	%{libname} = %{version}-%{release}
 Requires:	%{libgir} = %{version}-%{release}
 Provides:	gtk2-devel = %{version}-%{release}
 Provides:	%{pkgname}2-devel = %{version}-%{release}
@@ -146,11 +147,12 @@ for writing GTK+ widgets and using GTK+ widgets in applications), and GTK+
 (the widget set).
 
 #--------------------------------------------------------------------
-%package -n %{libx11}
+%package -n %{libname}
 Summary:	X11 backend of The GIMP ToolKit (GTK+)
 Group:		System/Libraries
+%rename		%{_lib}%{pkgname}-x11-%{api_version}_%{major}
 
-%description -n %{libx11}
+%description -n %{libname}
 This package contains the X11 version of library needed to run
 programs dynamically linked with gtk+.
 
@@ -158,7 +160,7 @@ programs dynamically linked with gtk+.
 %package -n %{libgir}
 Summary:	GObject Introspection interface description for %name
 Group:		System/Libraries
-Requires:	%{libx11} = %{version}-%{release}
+Requires:	%{libname} = %{version}-%{release}
 Conflicts:	%{mklibname %{pkgname}-x11- 2.0 0} <= 2.24.8-2
 Conflicts:	gir-repository < 0.6.5-4
 
@@ -252,19 +254,18 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 perl -pi -e "s|/usr/usr/%{_lib}|%{_libdir}|g" %{buildroot}%{_libdir}/*.la
 
 
-%post -n %{libname}
+%post -n %{modules}
 if [ "$1" = "2" ]; then
   if [ -f %{_sysconfdir}/gtk-%{api_version}/gtk.immodules ]; then
     rm -f %{_sysconfdir}/gtk-%{api_version}/gtk.immodules
   fi
 fi
-
 %{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version} > %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
 
-%triggerin -n %{libname} -- %{_libdir}/gtk-%{api_version}/%{binary_version}/immodules/*.so
+%triggerin -n %{modules} -- %{_libdir}/gtk-%{api_version}/%{binary_version}/immodules/*.so
 %{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version} > %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
 
-%triggerpostun -n %{libname} -- %{_libdir}/gtk-%{api_version}/%{binary_version}/immodules/*.so
+%triggerpostun -n %{modules} -- %{_libdir}/gtk-%{api_version}/%{binary_version}/immodules/*.so
 if [ -x %{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version} ]; then %{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version} > %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
 fi
 
@@ -278,7 +279,7 @@ fi
 %dir %{_sysconfdir}/gtk-%{api_version}
 %config(noreplace) %{_sysconfdir}/gtk-%{api_version}/im-multipress.conf
 
-%files -n %{libname}
+%files -n %{modules}
 %ghost %verify (not md5 mtime size) %config(noreplace) %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
 %dir %{_libdir}/gtk-%{api_version}
 %dir %{_libdir}/gtk-%{api_version}/bin
@@ -317,9 +318,9 @@ fi
 %{_datadir}/gir-1.0/Gtk-2.0.gir
 %{_libdir}/pkgconfig/*x11*
 
-%files -n %{libx11}
-%{_libdir}/libgdk-x11-%{api_version}.so.%{lib_major}*
-%{_libdir}/libgtk-x11-%{api_version}.so.%{lib_major}*
+%files -n %{libname}
+%{_libdir}/libgdk-x11-%{api_version}.so.%{major}*
+%{_libdir}/libgtk-x11-%{api_version}.so.%{major}*
 
 %files -n %{libgir}
 %{_libdir}/girepository-1.0/Gdk-%{api_version}.typelib
