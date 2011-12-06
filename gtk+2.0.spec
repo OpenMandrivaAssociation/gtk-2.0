@@ -17,8 +17,6 @@
 
 %define libgir		%mklibname gtk-gir %{api_version}
 
-106	%define oldname %mklibname %{pkgname} %{api_version} %{lib_major}
-107	%rename %{oldname}
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
@@ -154,7 +152,7 @@ for writing GTK+ widgets and using GTK+ widgets in applications), and GTK+
 %package -n %{libname}
 Summary:	X11 backend of The GIMP ToolKit (GTK+)
 Group:		System/Libraries
-%rename		%{_lib}%{pkgname}-x11-%{api_version}_%{major}
+Obsoletes:	%{_lib}%{pkgname}-x11-%{api_version}_%{major}
 
 %description -n %{libname}
 This package contains the X11 version of library needed to run
