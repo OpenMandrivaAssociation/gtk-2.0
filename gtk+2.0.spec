@@ -45,7 +45,7 @@ Patch18:	gtk+-2.21.1-fresh-tooltips.patch
 Patch20:	gtk+-2.24.7-window-dragging.patch
 # (fc) 2.20.0-3mdv allow specifying icon padding for tray icon (GNOME bug #583273) (Fedora)
 Patch21:	gtk+-2.20.0-icon-padding.patch
-
+Patch22:	gtk+-2.24.9-gir-linking.patch
 BuildRequires:	cups-devel
 BuildRequires:	fam-devel
 BuildRequires:	gettext-devel
