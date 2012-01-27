@@ -21,7 +21,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.24.9
-Release:	2
+Release:	3
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gtk.org
@@ -112,8 +112,7 @@ BuildArch:	noarch
 Conflicts:	%{name} <= 2.24.8-2
 
 %description common
-This package contains the common files for the GTK+2.0 graphical user
-interface.
+This package contains the common files for the GTK+2.0 graphical user interface.
 
 #--------------------------------------------------------------------
 %package -n %{modules}
@@ -257,6 +256,9 @@ done
 %find_lang gtk20-properties
 cat gtk20-properties.lang >> gtk20.lang
 
+#remove not packaged files
+find %{buildroot} -name '*.la' -exec rm -f {} ';'
+
 # remove some quite annoying /usr/usr
 perl -pi -e "s|/usr/usr/%{_lib}|%{_libdir}|g" %{buildroot}%{_libdir}/*.la
 
@@ -324,8 +326,6 @@ fi
 %{_datadir}/gir-1.0/GdkX11-2.0.gir
 %{_datadir}/gir-1.0/Gtk-2.0.gir
 %{_libdir}/pkgconfig/*x11*
-%{_libdir}/gtk-2.0/2.10.0/*/*.la
-%{_libdir}/gtk-2.0/modules/*.la
 
 %files -n %{libname}
 %{_libdir}/libgdk-x11-%{api_version}.so.%{major}*
