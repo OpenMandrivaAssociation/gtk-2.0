@@ -15,13 +15,13 @@
 %define libgail		%mklibname gail %{gail_major}
 %define develgail	%mklibname -d gail
 
-%define libgir		%mklibname gtk-gir %{api_version}
+%define girname		%mklibname gtk-gir %{api_version}
 
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.24.10
-Release:	1
+Release:	2
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gtk.org
@@ -66,12 +66,12 @@ BuildRequires:	pkgconfig(xi)
 BuildRequires:	pkgconfig(xinerama)
 BuildRequires:	pkgconfig(xrandr)
 BuildRequires:	pkgconfig(xrender)
-%if %enable_tests
+%if %{enable_tests}
 BuildRequires:  x11-server-xvfb
 # gw tests will fail without this
 BuildRequires: fonts-ttf-dejavu
 %endif
-%if %enable_gtkdoc
+%if %{enable_gtkdoc}
 BuildRequires: gtk-doc >= 0.9 
 BuildRequires: sgml-tools
 BuildRequires: texlive-texinfo
@@ -84,8 +84,8 @@ Requires:	gdk-pixbuf2.0
 Requires:	gio2.0
 Requires:	pango-modules
 %if !%{enable_bootstrap}
-Suggests: xdg-user-dirs-gtk
-Suggests: elementary-theme
+Suggests:	xdg-user-dirs-gtk
+Suggests:	elementary-theme
 %endif
 Provides:	gtk2 = %{version}-%{release}
 Obsoletes:	%{pkgname}2 < %{version}-%{release}
@@ -104,7 +104,6 @@ program, but is now used by several other programs as well.
 If you are planning on using the GIMP or another program that uses GTK+,
 you'll need to have the gtk+ package installed.
 
-#--------------------------------------------------------------------
 %package common
 Summary:	%{summary}
 Group:		%{group}
@@ -114,7 +113,6 @@ Conflicts:	%{name} <= 2.24.8-2
 %description common
 This package contains the common files for the GTK+2.0 graphical user interface.
 
-#--------------------------------------------------------------------
 %package -n %{modules}
 Summary:	%{summary}
 Group:		%{group}
@@ -134,19 +132,16 @@ Suggests:	%{_lib}gtk-aurora-engine
 This package contains the immodules, engines and printbackends libraries 
 for %{name} to function properly.
 
-#--------------------------------------------------------------------
 %package -n %{develname}
 Summary:	Development files for GTK+ (GIMP ToolKit) applications
 Group:		Development/GNOME and GTK+
 Requires:	%{libname} = %{version}-%{release}
-Requires:	%{libgir} = %{version}-%{release}
+Requires:	%{girname} = %{version}-%{release}
 Provides:	gtk2-devel = %{version}-%{release}
 Provides:	%{pkgname}2-devel = %{version}-%{release}
-Provides:	lib%{pkgname}2-devel = %{version}-%{release}
 Provides:	lib%{pkgname}%{api_version}-devel = %{version}-%{release}
 Provides:	%{libname}-devel = %{version}-%{release}
 
-#--------------------------------------------------------------------
 %description -n %{develname}
 The libgtk+-devel package contains the static libraries and header files
 needed for developing GTK+ (GIMP ToolKit) applications. The libgtk+-devel
@@ -154,7 +149,6 @@ package contains GDK (the General Drawing Kit, which simplifies the interface
 for writing GTK+ widgets and using GTK+ widgets in applications), and GTK+
 (the widget set).
 
-#--------------------------------------------------------------------
 %package -n %{libname}
 Summary:	X11 backend of The GIMP ToolKit (GTK+)
 Group:		System/Libraries
@@ -164,19 +158,15 @@ Obsoletes:	%{_lib}%{pkgname}-x11-%{api_version}_%{major}
 This package contains the X11 version of library needed to run
 programs dynamically linked with gtk+.
 
-#--------------------------------------------------------------------
-%package -n %{libgir}
+%package -n %{girname}
 Summary:	GObject Introspection interface description for %name
 Group:		System/Libraries
-Requires:	%{libname} = %{version}-%{release}
-Provides:	gtk2-gir = %{version}-%{release}
 Conflicts:	%{_lib}gtk+-x11-2.0_0 < 2.24.8-3
 Conflicts:	gir-repository < 0.6.5-4
 
-%description -n %{libgir}
+%description -n %{girname}
 GObject Introspection interface description for %name.
 
-#--------------------------------------------------------------------
 %package -n %{libgail}
 Summary:	GNOME Accessibility Implementation Library
 Group:		System/Libraries
@@ -184,18 +174,15 @@ Group:		System/Libraries
 %description -n %{libgail}
 Gail is the GNOME Accessibility Implementation Library
 
-#--------------------------------------------------------------------
 %package -n %{develgail}
 Summary:	Development libraries, include files for GAIL
 Group:		Development/GNOME and GTK+
 Provides:	gail-devel = %{version}-%{release}
-Provides:	libgail-devel = %{version}-%{release}
 Requires:	%{libgail} = %{version}-%{release}
 
 %description -n %{develgail}
 Gail is the GNOME Accessibility Implementation Library
 
-#--------------------------------------------------------------------
 %prep
 %setup -qn %{pkgname}-%{version}
 %apply_patches
@@ -219,7 +206,7 @@ export CPPFLAGS="-DGTK_COMPILATION"
 %make
 
 %check
-%if %enable_tests
+%if %{enable_tests}
 XDISPLAY=$(i=1; while [ -f /tmp/.X$i-lock ]; do i=$(($i+1)); done; echo $i)
 %{_bindir}/Xvfb :$XDISPLAY &
 export DISPLAY=:$XDISPLAY
@@ -331,7 +318,7 @@ fi
 %{_libdir}/libgdk-x11-%{api_version}.so.%{major}*
 %{_libdir}/libgtk-x11-%{api_version}.so.%{major}*
 
-%files -n %{libgir}
+%files -n %{girname}
 %{_libdir}/girepository-1.0/Gdk-%{api_version}.typelib
 %{_libdir}/girepository-1.0/GdkX11-%{api_version}.typelib
 %{_libdir}/girepository-1.0/Gtk-%{api_version}.typelib
