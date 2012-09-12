@@ -301,6 +301,7 @@ fi
 %{_datadir}/aclocal/*
 %{_datadir}/gtk-%{api_version}/
 %{_includedir}/gtk-unix-print-%{api_version}/
+%dir %{_includedir}/gtk-%{api_version}
 %{_includedir}/gtk-%{api_version}/gdk
 %{_includedir}/gtk-%{api_version}/gtk
 %{_libdir}/gtk-%{api_version}/include
