@@ -2,20 +2,19 @@
 %define enable_bootstrap 0
 %define enable_tests 0
 
-%define pkgname		gtk+
-%define api_version	2.0
-%define binary_version	2.10.0
-%define major		0
-%define libname		%mklibname %{pkgname} %{api_version} %{major}
-%define develname	%mklibname -d %{pkgname} %{api_version}
+%define pkgname gtk+
+%define api_version 2.0
+%define binary_version 2.10.0
+%define major 0
+%define libname %mklibname %{pkgname} %{api_version} %{major}
+%define develname %mklibname -d %{pkgname} %{api_version}
 # this isnt really a true lib pkg, but a modules/plugin pkg
-%define modules		%mklibname gtk-modules %{api_version}
+%define modules %mklibname gtk-modules %{api_version}
 
-%define gail_major	18
-%define libgail		%mklibname gail %{gail_major}
-%define develgail	%mklibname -d gail
-
-%define girname		%mklibname gtk-gir %{api_version}
+%define gail_major 18
+%define libgail %mklibname gail %{gail_major}
+%define develgail %mklibname -d gail
+%define girname %mklibname gtk-gir %{api_version}
 
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
@@ -28,7 +27,7 @@ URL:		http://www.gtk.org
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gtk+/%{pkgname}-%{version}.tar.xz
 # extra IM modules (vietnamese and tamil) -- pablo
 #gw TODO, needs to be fixed for 2.21.3
-Patch4:		gtk+-2.13.1-extra_im.patch 
+Patch4:		gtk+-2.13.1-extra_im.patch
 # (fc) 2.0.6-8mdk fix infinite loop and crash in file selector when / and $HOME are not readable (bug #90)
 Patch5:		gtk+-2.6.9-fileselectorfallback.patch
 # (fwang) 2.22.1-3 use Qtcurve theme by default if available
@@ -67,14 +66,14 @@ BuildRequires:	pkgconfig(xinerama)
 BuildRequires:	pkgconfig(xrandr)
 BuildRequires:	pkgconfig(xrender)
 %if %{enable_tests}
-BuildRequires:  x11-server-xvfb
+BuildRequires:	x11-server-xvfb
 # gw tests will fail without this
-BuildRequires: fonts-ttf-dejavu
+BuildRequires:	fonts-ttf-dejavu
 %endif
 %if %{enable_gtkdoc}
-BuildRequires: gtk-doc >= 0.9 
-BuildRequires: sgml-tools
-BuildRequires: texlive-texinfo
+BuildRequires:	gtk-doc >= 0.9
+BuildRequires:	sgml-tools
+BuildRequires:	texlive-texinfo
 %endif
 
 Requires:	%{name}-common = %{version}-%{release}
@@ -159,13 +158,13 @@ This package contains the X11 version of library needed to run
 programs dynamically linked with gtk+.
 
 %package -n %{girname}
-Summary:	GObject Introspection interface description for %name
+Summary:	GObject Introspection interface description for %{name}
 Group:		System/Libraries
 Conflicts:	%{_lib}gtk+-x11-2.0_0 < 2.24.8-3
 Conflicts:	gir-repository < 0.6.5-4
 
 %description -n %{girname}
-GObject Introspection interface description for %name.
+GObject Introspection interface description for %{name}.
 
 %package -n %{libgail}
 Summary:	GNOME Accessibility Implementation Library
