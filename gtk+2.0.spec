@@ -36,8 +36,6 @@ Patch12:	gtk+-defaulttheme.patch
 Patch13:	gtk+-2.2.4-lib64.patch
 # (fc) 2.18.2-2mdv fix nautilus crash (GNOME bug #596977) (pterjan)
 #Patch15:	gtk+-2.18.1-fixnautiluscrash.patch
-# (fc) 2.20.0-2mdv improve tooltip appareance (GNOME bug #599617) (Fedora)
-Patch18:	gtk+-2.21.1-fresh-tooltips.patch
 # (fc) 2.20.0-2mdv improve tooltip positioning (GNOME bug #599618) (Fedora)
 #Patch19:	gtk+-2.20.0-tooltip-positioning.patch
 # (fc) 2.20.0-2mdv allow window dragging toolbars / menubar (GNOME bug #611313)
