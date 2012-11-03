@@ -20,7 +20,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api_version}
 Version:	2.24.13
-Release:	1
+Release:	2
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gtk.org
@@ -47,7 +47,7 @@ BuildRequires:	cups-devel
 BuildRequires:	fam-devel
 BuildRequires:	gettext-devel
 BuildRequires:	pkgconfig(atk) >= 1.29.2
-BuildRequires:	pkgconfig(cairo) >= 1.6.0
+BuildRequires:	pkgconfig(cairo) >= 1.12.0
 BuildRequires:	pkgconfig(gdk-pixbuf-2.0) >= 2.21.0
 BuildRequires:	pkgconfig(glib-2.0) >= 2.25.10
 BuildRequires:	pkgconfig(gobject-introspection-1.0) >= 0.9.5
@@ -193,12 +193,14 @@ autoreconf -fi
 # fix crash in nautilus (GNOME bug #596977)
 export CFLAGS=`echo %{optflags} | sed -e 's/-fomit-frame-pointer//g'`
 
-#CONFIGURE_TOP=.. 
+#CONFIGURE_TOP=..
 export CPPFLAGS="-DGTK_COMPILATION"
 %configure2_5x \
 	--disable-static \
 	--enable-xinerama \
-	--with-xinput=xfree
+	--enable-xkb \
+	--enable-shm \
+	--with-xinput=yes
 
 %make
 
