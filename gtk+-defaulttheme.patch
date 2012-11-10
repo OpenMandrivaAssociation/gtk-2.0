@@ -1,0 +1,56 @@
+--- gtk+-2.24.8/gtk/gtksettings.c.defaulttheme	2011-11-10 18:38:03.000000000 +0100
++++ gtk+-2.24.8/gtk/gtksettings.c	2011-11-10 20:55:32.202929221 +0100
+@@ -295,7 +295,7 @@ gtk_settings_class_init (GtkSettingsClas
+ #ifdef G_OS_WIN32
+ 								  "MS-Windows",
+ #else
+-								  "Raleigh",
++								  "elementary",
+ #endif
+ 								  GTK_PARAM_READWRITE),
+                                              NULL);
+@@ -305,7 +305,7 @@ gtk_settings_class_init (GtkSettingsClas
+                                              g_param_spec_string ("gtk-icon-theme-name",
+ 								  P_("Icon Theme Name"),
+ 								  P_("Name of icon theme to use"),
+-								  "hicolor",
++								  "gnome",
+ 								  GTK_PARAM_READWRITE),
+                                              NULL);
+   g_assert (result == PROP_ICON_THEME_NAME);
+@@ -314,7 +314,7 @@ gtk_settings_class_init (GtkSettingsClas
+                                              g_param_spec_string ("gtk-fallback-icon-theme",
+ 								  P_("Fallback Icon Theme Name"),
+ 								  P_("Name of a icon theme to fall back to"),
+-								  NULL,
++								  "hicolor",
+ 								  GTK_PARAM_READWRITE),
+                                              NULL);
+   g_assert (result == PROP_FALLBACK_ICON_THEME);
+@@ -909,7 +909,7 @@ gtk_settings_class_init (GtkSettingsClas
+                                              g_param_spec_string ("gtk-sound-theme-name",
+                                                                   P_("Sound Theme Name"),
+                                                                   P_("XDG sound theme name"),
+-                                                                  "freedesktop",
++                                                                  "ia_ora",
+                                                                   GTK_PARAM_READWRITE),
+                                              NULL);
+   g_assert (result == PROP_SOUND_THEME_NAME);
+@@ -932,7 +932,7 @@ gtk_settings_class_init (GtkSettingsClas
+                                                                    /* Translators: this means sounds that are played as feedback to user input */
+ 								   P_("Audible Input Feedback"),
+ 								   P_("Whether to play event sounds as feedback to user input"),
+-								   TRUE,
++								   FALSE,
+ 								   GTK_PARAM_READWRITE),
+                                              NULL);
+   g_assert (result == PROP_ENABLE_INPUT_FEEDBACK_SOUNDS);
+@@ -954,7 +954,7 @@ gtk_settings_class_init (GtkSettingsClas
+                                              g_param_spec_boolean ("gtk-enable-event-sounds",
+ 								   P_("Enable Event Sounds"),
+ 								   P_("Whether to play any event sounds at all"),
+-								   TRUE,
++								   FALSE,
+ 								   GTK_PARAM_READWRITE),
+                                              NULL);
+   g_assert (result == PROP_ENABLE_EVENT_SOUNDS);
