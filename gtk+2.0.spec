@@ -294,8 +294,8 @@ fi
 
 %files -n %{devname}
 %doc docs/*.txt AUTHORS ChangeLog NEWS* README*
-#doc #{_datadir}/gtk-doc/html/gdk/
-#doc #{_datadir}/gtk-doc/html/gtk/
+%doc %{_datadir}/gtk-doc/html/gdk2/
+%doc %{_datadir}/gtk-doc/html/gtk2/
 %{_bindir}/gtk-demo
 %{_bindir}/gtk-builder-convert
 %{_datadir}/aclocal/*
@@ -328,7 +328,7 @@ fi
 %{_libdir}/libgailutil.so.%{gail_major}*
 
 %files -n %{devgail}
-#doc #{_datadir}/gtk-doc/html/gail-libgail-util
+%doc %{_datadir}/gtk-doc/html/gail-libgail-util
 %{_libdir}/libgailutil.so
 %{_includedir}/gail-1.0/
 %{_libdir}/pkgconfig/gail.pc
