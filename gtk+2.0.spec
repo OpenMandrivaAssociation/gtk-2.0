@@ -259,13 +259,13 @@ if [ "$1" = "2" ]; then
     rm -f %{_sysconfdir}/gtk-%{api}/gtk.immodules
   fi
 fi
-%{_libdir}/gtk-%{api}/bin/gtk-query-immodules-%{api_version} > %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
+%{_libdir}/gtk-%{api}/bin/gtk-query-immodules-%{api} > %{_sysconfdir}/gtk-%{api}/gtk.immodules.%{_lib}
 
 %triggerin -n %{modules} -- %{_libdir}/gtk-%{api}/%{binary_version}/immodules/*.so
-%{_libdir}/gtk-%{api}/bin/gtk-query-immodules-%{api_version} > %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
+%{_libdir}/gtk-%{api}/bin/gtk-query-immodules-%{api} > %{_sysconfdir}/gtk-%{api}/gtk.immodules.%{_lib}
 
 %triggerpostun -n %{modules} -- %{_libdir}/gtk-%{api}/%{binary_version}/immodules/*.so
-if [ -x %{_libdir}/gtk-%{api}/bin/gtk-query-immodules-%{api_version} ]; then %{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version} > %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
+if [ -x %{_libdir}/gtk-%{api}/bin/gtk-query-immodules-%{api} ]; then %{_libdir}/gtk-%{api}/bin/gtk-query-immodules-%{api} > %{_sysconfdir}/gtk-%{api}/gtk.immodules.%{_lib}
 fi
 
 %files
@@ -282,7 +282,7 @@ fi
 %ghost %verify (not md5 mtime size) %config(noreplace) %{_sysconfdir}/gtk-%{api}/gtk.immodules.%{_lib}
 %dir %{_libdir}/gtk-%{api}
 %dir %{_libdir}/gtk-%{api}/bin
-%{_libdir}/gtk-%{api}/bin/gtk-query-immodules-%{api_version}
+%{_libdir}/gtk-%{api}/bin/gtk-query-immodules-%{api}
 %dir %{_libdir}/gtk-%{api}/modules
 %dir %{_libdir}/gtk-%{api}/%{binary_version}
 %dir %{_libdir}/gtk-%{api}/%{binary_version}/immodules
