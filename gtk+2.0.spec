@@ -1,30 +1,31 @@
+%define url_ver %(echo %{version}|cut -d. -f1,2)
 %define enable_gtkdoc 1
 %define enable_bootstrap 0
 %define enable_tests 0
 
-%define pkgname gtk+
-%define api_version 2.0
+%define pkgname	gtk+
+%define api	2.0
 %define binary_version 2.10.0
-%define major 0
-%define libname %mklibname %{pkgname} %{api_version} %{major}
-%define develname %mklibname -d %{pkgname} %{api_version}
+%define major	0
+%define libname %mklibname %{pkgname} %{api} %{major}
+%define devname %mklibname -d %{pkgname} %{api}
 # this isnt really a true lib pkg, but a modules/plugin pkg
-%define modules %mklibname gtk-modules %{api_version}
+%define modules %mklibname gtk-modules %{api}
 
 %define gail_major 18
 %define libgail %mklibname gail %{gail_major}
-%define develgail %mklibname -d gail
-%define girname %mklibname gtk-gir %{api_version}
+%define devgail %mklibname -d gail
+%define girname %mklibname gtk-gir %{api}
 
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
-Name:		%{pkgname}%{api_version}
-Version:	2.24.13
-Release:	3
+Name:		%{pkgname}%{api}
+Version:	2.24.14
+Release:	1
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.gtk.org
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gtk+/%{pkgname}-%{version}.tar.xz
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gtk+/%{url_ver}/%{pkgname}-%{version}.tar.xz
 # extra IM modules (vietnamese and tamil) -- pablo
 #gw TODO, needs to be fixed for 2.21.3
 Patch4:		gtk+-2.13.1-extra_im.patch
@@ -129,17 +130,17 @@ Suggests:	%{_lib}gtk-aurora-engine
 This package contains the immodules, engines and printbackends libraries 
 for %{name} to function properly.
 
-%package -n %{develname}
+%package -n %{devname}
 Summary:	Development files for GTK+ (GIMP ToolKit) applications
 Group:		Development/GNOME and GTK+
 Requires:	%{libname} = %{version}-%{release}
 Requires:	%{girname} = %{version}-%{release}
 Provides:	gtk2-devel = %{version}-%{release}
 Provides:	%{pkgname}2-devel = %{version}-%{release}
-Provides:	lib%{pkgname}%{api_version}-devel = %{version}-%{release}
+Provides:	lib%{pkgname}%{api}-devel = %{version}-%{release}
 Provides:	%{libname}-devel = %{version}-%{release}
 
-%description -n %{develname}
+%description -n %{devname}
 The libgtk+-devel package contains the static libraries and header files
 needed for developing GTK+ (GIMP ToolKit) applications. The libgtk+-devel
 package contains GDK (the General Drawing Kit, which simplifies the interface
@@ -149,7 +150,7 @@ for writing GTK+ widgets and using GTK+ widgets in applications), and GTK+
 %package -n %{libname}
 Summary:	X11 backend of The GIMP ToolKit (GTK+)
 Group:		System/Libraries
-Obsoletes:	%{_lib}%{pkgname}-x11-%{api_version}_%{major}
+Obsoletes:	%{_lib}%{pkgname}-x11-%{api}_%{major}
 
 %description -n %{libname}
 This package contains the X11 version of library needed to run
@@ -171,13 +172,13 @@ Group:		System/Libraries
 %description -n %{libgail}
 Gail is the GNOME Accessibility Implementation Library
 
-%package -n %{develgail}
+%package -n %{devgail}
 Summary:	Development libraries, include files for GAIL
 Group:		Development/GNOME and GTK+
 Provides:	gail-devel = %{version}-%{release}
 Requires:	%{libgail} = %{version}-%{release}
 
-%description -n %{develgail}
+%description -n %{devgail}
 Gail is the GNOME Accessibility Implementation Library
 
 %prep
@@ -221,22 +222,22 @@ rm -rf %{buildroot}
 
 %makeinstall_std mandir=%{_mandir} RUN_QUERY_IMMODULES_TEST=false RUN_QUERY_LOADER_TEST=false
 
-mkdir -p %{buildroot}%{_sysconfdir}/gtk-%{api_version}
-touch %{buildroot}%{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
-mkdir -p %{buildroot}%{_libdir}/gtk-%{api_version}/modules
+mkdir -p %{buildroot}%{_sysconfdir}/gtk-%{api}
+touch %{buildroot}%{_sysconfdir}/gtk-%{api}/gtk.immodules.%{_lib}
+mkdir -p %{buildroot}%{_libdir}/gtk-%{api}/modules
 
 # handle biarch packages
-progs="gtk-query-immodules-%{api_version}"
-mkdir -p %{buildroot}%{_libdir}/gtk-%{api_version}/bin
+progs="gtk-query-immodules-%{api}"
+mkdir -p %{buildroot}%{_libdir}/gtk-%{api}/bin
 for f in $progs; do
-  mv -f %{buildroot}%{_bindir}/$f %{buildroot}%{_libdir}/gtk-%{api_version}/bin/
+  mv -f %{buildroot}%{_bindir}/$f %{buildroot}%{_libdir}/gtk-%{api}/bin/
   cat > %{buildroot}%{_bindir}/$f << EOF
 #!/bin/sh
 lib=%{_lib}
 case ":\$1:" in
 :lib*:) lib="\$1"; shift 1;;
 esac
-exec %{_prefix}/\$lib/gtk-%{api_version}/bin/$f \${1+"\$@"}
+exec %{_prefix}/\$lib/gtk-%{api}/bin/$f \${1+"\$@"}
 EOF
   chmod +x %{buildroot}%{_bindir}/$f
 done
@@ -254,82 +255,82 @@ perl -pi -e "s|/usr/usr/%{_lib}|%{_libdir}|g" %{buildroot}%{_libdir}/*.la
 
 %post -n %{modules}
 if [ "$1" = "2" ]; then
-  if [ -f %{_sysconfdir}/gtk-%{api_version}/gtk.immodules ]; then
-    rm -f %{_sysconfdir}/gtk-%{api_version}/gtk.immodules
+  if [ -f %{_sysconfdir}/gtk-%{api}/gtk.immodules ]; then
+    rm -f %{_sysconfdir}/gtk-%{api}/gtk.immodules
   fi
 fi
-%{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version} > %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
+%{_libdir}/gtk-%{api}/bin/gtk-query-immodules-%{api_version} > %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
 
-%triggerin -n %{modules} -- %{_libdir}/gtk-%{api_version}/%{binary_version}/immodules/*.so
-%{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version} > %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
+%triggerin -n %{modules} -- %{_libdir}/gtk-%{api}/%{binary_version}/immodules/*.so
+%{_libdir}/gtk-%{api}/bin/gtk-query-immodules-%{api_version} > %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
 
-%triggerpostun -n %{modules} -- %{_libdir}/gtk-%{api_version}/%{binary_version}/immodules/*.so
-if [ -x %{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version} ]; then %{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version} > %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
+%triggerpostun -n %{modules} -- %{_libdir}/gtk-%{api}/%{binary_version}/immodules/*.so
+if [ -x %{_libdir}/gtk-%{api}/bin/gtk-query-immodules-%{api_version} ]; then %{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version} > %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
 fi
 
 %files
 %doc README
-%{_bindir}/gtk-query-immodules-%{api_version}
+%{_bindir}/gtk-query-immodules-%{api}
 %{_bindir}/gtk-update-icon-cache
 
 %files common -f gtk20.lang
 %{_datadir}/themes/
-%dir %{_sysconfdir}/gtk-%{api_version}
-%config(noreplace) %{_sysconfdir}/gtk-%{api_version}/im-multipress.conf
+%dir %{_sysconfdir}/gtk-%{api}
+%config(noreplace) %{_sysconfdir}/gtk-%{api}/im-multipress.conf
 
 %files -n %{modules}
-%ghost %verify (not md5 mtime size) %config(noreplace) %{_sysconfdir}/gtk-%{api_version}/gtk.immodules.%{_lib}
-%dir %{_libdir}/gtk-%{api_version}
-%dir %{_libdir}/gtk-%{api_version}/bin
-%{_libdir}/gtk-%{api_version}/bin/gtk-query-immodules-%{api_version}
-%dir %{_libdir}/gtk-%{api_version}/modules
-%dir %{_libdir}/gtk-%{api_version}/%{binary_version}
-%dir %{_libdir}/gtk-%{api_version}/%{binary_version}/immodules
-%dir %{_libdir}/gtk-%{api_version}/%{binary_version}/engines
-%dir %{_libdir}/gtk-%{api_version}/%{binary_version}/printbackends
-%{_libdir}/gtk-%{api_version}/%{binary_version}/immodules/*.so
-%{_libdir}/gtk-%{api_version}/%{binary_version}/engines/*.so
-%{_libdir}/gtk-%{api_version}/%{binary_version}/printbackends/*.so
+%ghost %verify (not md5 mtime size) %config(noreplace) %{_sysconfdir}/gtk-%{api}/gtk.immodules.%{_lib}
+%dir %{_libdir}/gtk-%{api}
+%dir %{_libdir}/gtk-%{api}/bin
+%{_libdir}/gtk-%{api}/bin/gtk-query-immodules-%{api_version}
+%dir %{_libdir}/gtk-%{api}/modules
+%dir %{_libdir}/gtk-%{api}/%{binary_version}
+%dir %{_libdir}/gtk-%{api}/%{binary_version}/immodules
+%dir %{_libdir}/gtk-%{api}/%{binary_version}/engines
+%dir %{_libdir}/gtk-%{api}/%{binary_version}/printbackends
+%{_libdir}/gtk-%{api}/%{binary_version}/immodules/*.so
+%{_libdir}/gtk-%{api}/%{binary_version}/engines/*.so
+%{_libdir}/gtk-%{api}/%{binary_version}/printbackends/*.so
 # from gail lib
 %{_libdir}/gtk-2.0/modules/libferret.so
 %{_libdir}/gtk-2.0/modules/libgail.so
 
-%files -n %{develname}
+%files -n %{devname}
 %doc docs/*.txt AUTHORS ChangeLog NEWS* README*
 %doc %{_datadir}/gtk-doc/html/gdk/
 %doc %{_datadir}/gtk-doc/html/gtk/
 %{_bindir}/gtk-demo
 %{_bindir}/gtk-builder-convert
 %{_datadir}/aclocal/*
-%{_datadir}/gtk-%{api_version}/
-%{_includedir}/gtk-unix-print-%{api_version}/
-%dir %{_includedir}/gtk-%{api_version}
-%{_includedir}/gtk-%{api_version}/gdk
-%{_includedir}/gtk-%{api_version}/gtk
-%{_libdir}/gtk-%{api_version}/include
-%{_libdir}/pkgconfig/gdk-%{api_version}.pc
-%{_libdir}/pkgconfig/gtk+-%{api_version}.pc
-%{_libdir}/pkgconfig/gtk+-unix-print-%{api_version}.pc
-%{_libdir}/libgdk-x11-%{api_version}.so
-%{_libdir}/libgtk-x11-%{api_version}.so
+%{_datadir}/gtk-%{api}/
+%{_includedir}/gtk-unix-print-%{api}/
+%dir %{_includedir}/gtk-%{api}
+%{_includedir}/gtk-%{api}/gdk
+%{_includedir}/gtk-%{api}/gtk
+%{_libdir}/gtk-%{api}/include
+%{_libdir}/pkgconfig/gdk-%{api}.pc
+%{_libdir}/pkgconfig/gtk+-%{api}.pc
+%{_libdir}/pkgconfig/gtk+-unix-print-%{api}.pc
+%{_libdir}/libgdk-x11-%{api}.so
+%{_libdir}/libgtk-x11-%{api}.so
 %{_datadir}/gir-1.0/Gdk-2.0.gir
 %{_datadir}/gir-1.0/GdkX11-2.0.gir
 %{_datadir}/gir-1.0/Gtk-2.0.gir
 %{_libdir}/pkgconfig/*x11*
 
 %files -n %{libname}
-%{_libdir}/libgdk-x11-%{api_version}.so.%{major}*
-%{_libdir}/libgtk-x11-%{api_version}.so.%{major}*
+%{_libdir}/libgdk-x11-%{api}.so.%{major}*
+%{_libdir}/libgtk-x11-%{api}.so.%{major}*
 
 %files -n %{girname}
-%{_libdir}/girepository-1.0/Gdk-%{api_version}.typelib
-%{_libdir}/girepository-1.0/GdkX11-%{api_version}.typelib
-%{_libdir}/girepository-1.0/Gtk-%{api_version}.typelib
+%{_libdir}/girepository-1.0/Gdk-%{api}.typelib
+%{_libdir}/girepository-1.0/GdkX11-%{api}.typelib
+%{_libdir}/girepository-1.0/Gtk-%{api}.typelib
 
 %files -n %{libgail}
 %{_libdir}/libgailutil.so.%{gail_major}*
 
-%files -n %{develgail}
+%files -n %{devgail}
 %{_datadir}/gtk-doc/html/gail-libgail-util
 %{_libdir}/libgailutil.so
 %{_includedir}/gail-1.0/
