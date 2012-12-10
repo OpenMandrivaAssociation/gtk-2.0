@@ -221,8 +221,6 @@ kill $(cat /tmp/.X$XDISPLAY-lock) ||:
 %endif
 
 %install
-rm -rf %{buildroot}
-
 %makeinstall_std mandir=%{_mandir} RUN_QUERY_IMMODULES_TEST=false RUN_QUERY_LOADER_TEST=false
 
 mkdir -p %{buildroot}%{_sysconfdir}/gtk-%{api}
@@ -245,16 +243,12 @@ EOF
   chmod +x %{buildroot}%{_bindir}/$f
 done
 
-%{find_lang} gtk20
+%find_lang gtk20
 %find_lang gtk20-properties
 cat gtk20-properties.lang >> gtk20.lang
 
 #remove not packaged files
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
-
-# remove some quite annoying /usr/usr
-perl -pi -e "s|/usr/usr/%{_lib}|%{_libdir}|g" %{buildroot}%{_libdir}/*.la
-
 
 %post -n %{modules}
 if [ "$1" = "2" ]; then
@@ -300,8 +294,8 @@ fi
 
 %files -n %{devname}
 %doc docs/*.txt AUTHORS ChangeLog NEWS* README*
-%doc %{_datadir}/gtk-doc/html/gdk/
-%doc %{_datadir}/gtk-doc/html/gtk/
+#doc #{_datadir}/gtk-doc/html/gdk/
+#doc #{_datadir}/gtk-doc/html/gtk/
 %{_bindir}/gtk-demo
 %{_bindir}/gtk-builder-convert
 %{_datadir}/aclocal/*
@@ -334,7 +328,7 @@ fi
 %{_libdir}/libgailutil.so.%{gail_major}*
 
 %files -n %{devgail}
-%{_datadir}/gtk-doc/html/gail-libgail-util
+#doc #{_datadir}/gtk-doc/html/gail-libgail-util
 %{_libdir}/libgailutil.so
 %{_includedir}/gail-1.0/
 %{_libdir}/pkgconfig/gail.pc
