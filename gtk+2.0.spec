@@ -109,7 +109,8 @@ BuildArch:	noarch
 Conflicts:	%{name} <= 2.24.8-2
 
 %description common
-This package contains the common files for the GTK+2.0 graphical user interface.
+This package contains the common files for the GTK+2.0 graphical user 
+interface.
 
 %package -n %{modules}
 Summary:	%{summary}
