@@ -201,6 +201,9 @@ export CPPFLAGS="-DGTK_COMPILATION"
 	--enable-xinerama \
 	--enable-xkb \
 	--enable-shm \
+%if %{enable_gtkdoc}
+	--enable-gtk-doc=yes \
+%endif
 	--with-xinput=yes
 
 # fight unused direct deps
