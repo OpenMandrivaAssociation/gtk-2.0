@@ -20,11 +20,11 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api}
-Version:	2.24.14
-Release:	3
+Version:	2.24.15
+Release:	1
 License:	LGPLv2+
 Group:		System/Libraries
-URL:		http://www.gtk.org
+Url:		http://www.gtk.org
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gtk+/%{url_ver}/%{pkgname}-%{version}.tar.xz
 # extra IM modules (vietnamese and tamil) -- pablo
 #gw TODO, needs to be fixed for 2.21.3
@@ -139,8 +139,6 @@ Requires:	%{libname} = %{version}-%{release}
 Requires:	%{girname} = %{version}-%{release}
 Provides:	gtk2-devel = %{version}-%{release}
 Provides:	%{pkgname}2-devel = %{version}-%{release}
-Provides:	lib%{pkgname}%{api}-devel = %{version}-%{release}
-Provides:	%{libname}-devel = %{version}-%{release}
 
 %description -n %{devname}
 The libgtk+-devel package contains the static libraries and header files
@@ -162,7 +160,6 @@ programs dynamically linked with gtk+.
 Summary:	GObject Introspection interface description for %{name}
 Group:		System/Libraries
 Conflicts:	%{_lib}gtk+-x11-2.0_0 < 2.24.8-3
-Conflicts:	gir-repository < 0.6.5-4
 
 %description -n %{girname}
 GObject Introspection interface description for %{name}.
