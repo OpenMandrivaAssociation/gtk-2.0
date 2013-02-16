@@ -16,9 +16,9 @@
      }
  
    return result;
---- gtk+-2.2.4/configure.in.lib64	2004-07-16 12:18:05.000000000 +0200
-+++ gtk+-2.2.4/configure.in	2004-07-16 12:26:06.000000000 +0200
-@@ -1510,6 +1510,39 @@ AM_CONDITIONAL(ENABLE_GTK_DOC, test x$en
+--- gtk+-2.2.4/configure.ac.lib64	2004-07-16 12:18:05.000000000 +0200
++++ gtk+-2.2.4/configure.ac	2004-07-16 12:26:06.000000000 +0200
+@@ -1620,6 +1620,39 @@ AM_CONDITIONAL(ENABLE_GTK_DOC, test x$en
  
  
  ##################################################
