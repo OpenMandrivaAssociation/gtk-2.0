@@ -3,10 +3,10 @@
 %define enable_bootstrap 0
 %define enable_tests 0
 
-%define pkgname	gtk+
-%define api	2.0
+%define pkgname gtk+
+%define api 2.0
 %define binary_version 2.10.0
-%define major	0
+%define major 0
 %define libname %mklibname %{pkgname} %{api} %{major}
 %define devname %mklibname -d %{pkgname} %{api}
 # this isnt really a true lib pkg, but a modules/plugin pkg
@@ -20,7 +20,7 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api}
-Version:	2.24.15
+Version:	2.24.17
 Release:	1
 License:	LGPLv2+
 Group:		System/Libraries
@@ -291,7 +291,7 @@ fi
 %{_libdir}/gtk-2.0/modules/libgail.so
 
 %files -n %{devname}
-%doc docs/*.txt AUTHORS ChangeLog NEWS* README*
+%doc docs/*.txt AUTHORS ChangeLog NEWS README*
 %doc %{_datadir}/gtk-doc/html/gdk2/
 %doc %{_datadir}/gtk-doc/html/gtk2/
 %{_bindir}/gtk-demo
