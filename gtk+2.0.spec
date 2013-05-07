@@ -4,24 +4,26 @@
 %define enable_tests 0
 
 %define pkgname gtk+
-%define api 2.0
 %define binary_version 2.10.0
-%define major 0
-%define libname %mklibname %{pkgname} %{api} %{major}
-%define devname %mklibname -d %{pkgname} %{api}
+%define api	2.0
+%define major	0
 # this isnt really a true lib pkg, but a modules/plugin pkg
 %define modules %mklibname gtk-modules %{api}
+%define libgdk	%mklibname gdk-x11_ %{api} %{major}
+%define libgtk	%mklibname gtk-x11_ %{api} %{major}
+%define girgdk	%mklibname gdk-gir %{api}
+%define girgdkx11 %mklibname gdkx11-gir %{api}
+%define girname %mklibname gtk-gir %{api}
+%define devname	%mklibname -d %{pkgname} %{api}
 
 %define gail_major 18
 %define libgail %mklibname gail %{gail_major}
 %define devgail %mklibname -d gail
-%define girname %mklibname gtk-gir %{api}
-
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api}
 Version:	2.24.17
-Release:	1
+Release:	2
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gtk.org
@@ -86,12 +88,10 @@ Suggests:	xdg-user-dirs-gtk
 Suggests:	elementary-theme
 %endif
 Provides:	gtk2 = %{version}-%{release}
-Obsoletes:	%{pkgname}2 < %{version}-%{release}
 Provides:	%{pkgname}2 = %{version}-%{release}
 #(proyvind): to ensure we have g_malloc0_n & g_malloc_n (required by trigger)
 #            provided by the ABI
 Conflicts:	glib2 < 2.24
-Conflicts:	perl-Gtk2 < 1.113
 
 %description
 The gtk+ package contains the GIMP ToolKit (GTK+), a library for creating
@@ -131,37 +131,63 @@ Suggests:	%{_lib}gtk-aurora-engine
 This package contains the immodules, engines and printbackends libraries 
 for %{name} to function properly.
 
-%package -n %{devname}
-Summary:	Development files for GTK+ (GIMP ToolKit) applications
-Group:		Development/GNOME and GTK+
-Requires:	%{libname} = %{version}-%{release}
-Requires:	%{girname} = %{version}-%{release}
-Provides:	gtk2-devel = %{version}-%{release}
-Provides:	%{pkgname}2-devel = %{version}-%{release}
-
-%description -n %{devname}
-The libgtk+-devel package contains the static libraries and header files
-needed for developing GTK+ (GIMP ToolKit) applications. The libgtk+-devel
-package contains GDK (the General Drawing Kit, which simplifies the interface
-for writing GTK+ widgets and using GTK+ widgets in applications), and GTK+
-(the widget set).
-
-%package -n %{libname}
+%package -n %{libgdk}
 Summary:	X11 backend of The GIMP ToolKit (GTK+)
 Group:		System/Libraries
-Obsoletes:	%{_lib}%{pkgname}-x11-%{api}_%{major}
+Obsoletes:	%{_lib}%{pkgname}-x11-%{api}_%{major} < 2.24.17-2
+Obsoletes:	%{_lib}gtk+%{api}_%{major} < 2.24.17-2
 
-%description -n %{libname}
-This package contains the X11 version of library needed to run
-programs dynamically linked with gtk+.
+%description -n %{libgdk}
+This package contains a shared library for %{name}.
+
+%package -n %{libgtk}
+Summary:	X11 backend of The GIMP ToolKit (GTK+)
+Group:		System/Libraries
+Obsoletes:	%{_lib}%{pkgname}-x11-%{api}_%{major} < 2.24.17-2
+Obsoletes:	%{_lib}gtk+%{api}_%{major} < 2.24.17-2
+
+%description -n %{libgtk}
+This package contains a shared library for %{name}.
+
+%package -n %{girgdk}
+Summary:	GObject Introspection interface description for %{name}
+Group:		System/Libraries
+Conflicts:	%{_lib}gtk+-x11-2.0_0 < 2.24.8-3
+Conflicts:	%{_lib}gtk+-gir2.0 < 2.24.17-2
+
+%description -n %{girgdk}
+GObject Introspection interface description for %{name}.
+
+%package -n %{girgdkx11}
+Summary:	GObject Introspection interface description for %{name}
+Group:		System/Libraries
+Conflicts:	%{_lib}gtk+-x11-2.0_0 < 2.24.8-3
+Conflicts:	%{_lib}gtk+-gir2.0 < 2.24.17-2
+
+%description -n %{girgdkx11}
+GObject Introspection interface description for %{name}.
 
 %package -n %{girname}
 Summary:	GObject Introspection interface description for %{name}
 Group:		System/Libraries
 Conflicts:	%{_lib}gtk+-x11-2.0_0 < 2.24.8-3
+Conflicts:	%{_lib}gtk+-gir2.0 < 2.24.17-2
 
 %description -n %{girname}
 GObject Introspection interface description for %{name}.
+
+%package -n %{devname}
+Summary:	Development files for GTK+ (GIMP ToolKit) applications
+Group:		Development/GNOME and GTK+
+Requires:	%{libgdk} = %{version}-%{release}
+Requires:	%{libgtk} = %{version}-%{release}
+Requires:	%{girgdk} = %{version}-%{release}
+Requires:	%{girgdkx11} = %{version}-%{release}
+Requires:	%{girname} = %{version}-%{release}
+Provides:	%{pkgname}2-devel = %{version}-%{release}
+
+%description -n %{devname}
+This package contains the development files for %{name}.
 
 %package -n %{libgail}
 Summary:	GNOME Accessibility Implementation Library
@@ -245,9 +271,6 @@ done
 %find_lang gtk20-properties
 cat gtk20-properties.lang >> gtk20.lang
 
-#remove not packaged files
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
-
 %post -n %{modules}
 if [ "$1" = "2" ]; then
   if [ -f %{_sysconfdir}/gtk-%{api}/gtk.immodules ]; then
@@ -290,6 +313,21 @@ fi
 %{_libdir}/gtk-2.0/modules/libferret.so
 %{_libdir}/gtk-2.0/modules/libgail.so
 
+%files -n %{libgdk}
+%{_libdir}/libgdk-x11-%{api}.so.%{major}*
+
+%files -n %{libgtk}
+%{_libdir}/libgtk-x11-%{api}.so.%{major}*
+
+%files -n %{girgdk}
+%{_libdir}/girepository-1.0/Gdk-%{api}.typelib
+
+%files -n %{girgdkx11}
+%{_libdir}/girepository-1.0/GdkX11-%{api}.typelib
+
+%files -n %{girname}
+%{_libdir}/girepository-1.0/Gtk-%{api}.typelib
+
 %files -n %{devname}
 %doc docs/*.txt AUTHORS ChangeLog NEWS README*
 %doc %{_datadir}/gtk-doc/html/gdk2/
@@ -313,15 +351,6 @@ fi
 %{_datadir}/gir-1.0/Gtk-2.0.gir
 %{_libdir}/pkgconfig/*x11*
 
-%files -n %{libname}
-%{_libdir}/libgdk-x11-%{api}.so.%{major}*
-%{_libdir}/libgtk-x11-%{api}.so.%{major}*
-
-%files -n %{girname}
-%{_libdir}/girepository-1.0/Gdk-%{api}.typelib
-%{_libdir}/girepository-1.0/GdkX11-%{api}.typelib
-%{_libdir}/girepository-1.0/Gtk-%{api}.typelib
-
 %files -n %{libgail}
 %{_libdir}/libgailutil.so.%{gail_major}*
 
@@ -330,3 +359,4 @@ fi
 %{_libdir}/libgailutil.so
 %{_includedir}/gail-1.0/
 %{_libdir}/pkgconfig/gail.pc
+
