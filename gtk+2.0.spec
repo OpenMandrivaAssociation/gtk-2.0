@@ -184,7 +184,7 @@ Requires:	%{libgtk} = %{version}-%{release}
 Requires:	%{girgdk} = %{version}-%{release}
 Requires:	%{girgdkx11} = %{version}-%{release}
 Requires:	%{girname} = %{version}-%{release}
-Provides:	%{pkgname}2-devel = %{version}-%{release}
+Provides:	%{name}-devel = %{version}-%{release}
 
 %description -n %{devname}
 This package contains the development files for %{name}.
