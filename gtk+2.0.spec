@@ -23,7 +23,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api}
 Version:	2.24.18
-Release:	6
+Release:	7
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gtk.org
@@ -85,7 +85,7 @@ Requires:	gio2.0
 Requires:	pango-modules
 %if !%{enable_bootstrap}
 Suggests:	xdg-user-dirs-gtk
-Suggests:	elementary-theme
+Suggests:	oxygen-gtk
 Suggests:	gtk2-modules
 %endif
 Provides:	gtk2 = %{version}-%{release}
