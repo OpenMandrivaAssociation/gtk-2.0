@@ -5,7 +5,7 @@
  								  "MS-Windows",
  #else
 -								  "Raleigh",
-+								  "elementary",
++								  "oxygen-gtk",
  #endif
  								  GTK_PARAM_READWRITE),
                                               NULL);
