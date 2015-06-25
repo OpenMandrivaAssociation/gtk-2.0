@@ -22,7 +22,7 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api}
-Version:	2.24.27
+Version:	2.24.28
 Release:	1
 License:	LGPLv2+
 Group:		System/Libraries
@@ -213,6 +213,7 @@ Gail is the GNOME Accessibility Implementation Library
 #needed by patches 4 & 13
 #gw disable it for bootstrapping
 mkdir -p m4
+sed -i 's/HAVE_GTK_DOC/ENABLE_GTK_DOC/' gtk-doc.make
 autoreconf -fi
 
 %build
