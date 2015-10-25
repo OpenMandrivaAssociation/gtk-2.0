@@ -5,7 +5,7 @@
  								  "MS-Windows",
  #else
 -								  "Raleigh",
-+								  "oxygen-gtk",
++								  "Breeze-dark-gtk",
  #endif
  								  GTK_PARAM_READWRITE),
                                               NULL);
