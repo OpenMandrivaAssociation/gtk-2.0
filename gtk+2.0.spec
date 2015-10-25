@@ -222,7 +222,7 @@ export CFLAGS=`echo %{optflags} | sed -e 's/-fomit-frame-pointer//g'`
 
 #CONFIGURE_TOP=..
 export CPPFLAGS="-DGTK_COMPILATION"
-%configure2_5x \
+%configure \
 	--disable-static \
 	--enable-xinerama \
 	--enable-xkb \
