@@ -22,8 +22,8 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api}
-Version:	2.24.28
-Release:	4
+Version:	2.24.31
+Release:	1
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gtk.org
@@ -275,9 +275,9 @@ cat gtk20-properties.lang >> gtk20.lang
 
 %post -n %{modules}
 if [ "$1" = "2" ]; then
-  if [ -f %{_sysconfdir}/gtk-%{api}/gtk.immodules ]; then
-    rm -f %{_sysconfdir}/gtk-%{api}/gtk.immodules
-  fi
+    if [ -f %{_sysconfdir}/gtk-%{api}/gtk.immodules ]; then
+	rm -f %{_sysconfdir}/gtk-%{api}/gtk.immodules
+    fi
 fi
 %{_libdir}/gtk-%{api}/bin/gtk-query-immodules-%{api} > %{_sysconfdir}/gtk-%{api}/gtk.immodules.%{_lib}
 
@@ -285,11 +285,11 @@ fi
 %{_libdir}/gtk-%{api}/bin/gtk-query-immodules-%{api} > %{_sysconfdir}/gtk-%{api}/gtk.immodules.%{_lib}
 
 %triggerpostun -n %{modules} -- %{_libdir}/gtk-%{api}/%{binary_version}/immodules/*.so
-if [ -x %{_libdir}/gtk-%{api}/bin/gtk-query-immodules-%{api} ]; then %{_libdir}/gtk-%{api}/bin/gtk-query-immodules-%{api} > %{_sysconfdir}/gtk-%{api}/gtk.immodules.%{_lib}
+if [ -x %{_libdir}/gtk-%{api}/bin/gtk-query-immodules-%{api} ]; then
+    %{_libdir}/gtk-%{api}/bin/gtk-query-immodules-%{api} > %{_sysconfdir}/gtk-%{api}/gtk.immodules.%{_lib}
 fi
 
 %files
-%doc README
 %{_bindir}/gtk-query-immodules-%{api}
 %{_bindir}/gtk-update-icon-cache
 
@@ -331,7 +331,7 @@ fi
 %{_libdir}/girepository-1.0/Gtk-%{api}.typelib
 
 %files -n %{devname}
-%doc docs/*.txt AUTHORS ChangeLog NEWS README*
+%doc docs/*.txt AUTHORS NEWS README*
 %doc %{_datadir}/gtk-doc/html/gdk2/
 %doc %{_datadir}/gtk-doc/html/gtk2/
 %{_bindir}/gtk-demo
@@ -361,4 +361,3 @@ fi
 %{_libdir}/libgailutil.so
 %{_includedir}/gail-1.0/
 %{_libdir}/pkgconfig/gail.pc
-
