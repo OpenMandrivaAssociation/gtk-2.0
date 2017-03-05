@@ -23,7 +23,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api}
 Version:	2.24.31
-Release:	1
+Release:	2
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gtk.org
@@ -98,7 +98,7 @@ Conflicts:	glib2 < 2.24
 The gtk+ package contains the GIMP ToolKit (GTK+), a library for creating
 graphical user interfaces for the X Window System.  GTK+ was originally
 written for the GIMP (GNU Image Manipulation Program) image processing
-program, but is now used by several other programs as well.  
+program, but is now used by several other programs as well.
 
 If you are planning on using the GIMP or another program that uses GTK+,
 you'll need to have the gtk+ package installed.
@@ -110,7 +110,7 @@ BuildArch:	noarch
 Conflicts:	%{name} <= 2.24.8-2
 
 %description common
-This package contains the common files for the GTK+2.0 graphical user 
+This package contains the common files for the GTK+2.0 graphical user
 interface.
 
 %package -n %{modules}
@@ -129,7 +129,7 @@ Suggests:	%{_lib}gtk-aurora-engine
 %endif
 
 %description -n %{modules}
-This package contains the immodules, engines and printbackends libraries 
+This package contains the immodules, engines and printbackends libraries
 for %{name} to function properly.
 
 %package -n %{libgdk}
