@@ -48,6 +48,7 @@ Patch21:	gtk+-2.20.0-icon-padding.patch
 
 BuildRequires:	cups-devel
 BuildRequires:	pkgconfig(krb5)
+BuildRequires:	pkgconfig(com_err)
 BuildRequires:	fam-devel
 BuildRequires:	gettext-devel
 BuildRequires:	pkgconfig(atk) >= 1.29.2
