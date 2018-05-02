@@ -1,10 +1,11 @@
---- gtk+-2.24.7/gtk/gtkmenushell.c.window-dragging	2011-08-16 04:30:52.000000000 +0200
-+++ gtk+-2.24.7/gtk/gtkmenushell.c	2011-10-18 09:15:41.456036387 +0200
-@@ -589,18 +589,45 @@ gtk_menu_shell_button_press (GtkWidget
+diff -up gtk+-2.24.32/gtk/gtkmenushell.c.0020~ gtk+-2.24.32/gtk/gtkmenushell.c
+--- gtk+-2.24.32/gtk/gtkmenushell.c.0020~	2018-04-27 12:01:15.853279905 +0200
++++ gtk+-2.24.32/gtk/gtkmenushell.c	2018-04-27 13:11:38.182634195 +0200
+@@ -609,18 +609,45 @@ gtk_menu_shell_button_press (GtkWidget
  
    if (!menu_shell->active || !menu_shell->button)
      {
--      _gtk_menu_shell_activate (menu_shell);
+-      gtk_menu_shell_activate (menu_shell);
 +      gboolean initially_active = menu_shell->active;
  
        menu_shell->button = event->button;
@@ -21,7 +22,7 @@
              {
 -              menu_shell->activate_time = event->time;
 -              gtk_menu_shell_select_item (menu_shell, menu_item);
-+              _gtk_menu_shell_activate (menu_shell);
++              gtk_menu_shell_activate (menu_shell);
 +              menu_shell->button = event->button;
 +
 +              if (GTK_MENU_SHELL_GET_CLASS (menu_shell)->submenu_placement == GTK_TOP_BOTTOM)
@@ -53,8 +54,9 @@
              }
          }
      }
---- gtk+-2.24.7/gtk/gtktoolbar.c.window-dragging	2011-10-01 17:29:06.000000000 +0200
-+++ gtk+-2.24.7/gtk/gtktoolbar.c	2011-10-18 09:23:05.129849204 +0200
+diff -up gtk+-2.24.32/gtk/gtktoolbar.c.0020~ gtk+-2.24.32/gtk/gtktoolbar.c
+--- gtk+-2.24.32/gtk/gtktoolbar.c.0020~	2017-12-10 03:41:59.000000000 +0100
++++ gtk+-2.24.32/gtk/gtktoolbar.c	2018-04-27 12:01:15.854279882 +0200
 @@ -2701,6 +2701,8 @@ static gboolean
  gtk_toolbar_button_press (GtkWidget      *toolbar,
      			  GdkEventButton *event)
@@ -95,8 +97,9 @@
    return FALSE;
  }
  
---- gtk+-2.24.7/gtk/gtkwidget.c.window-dragging	2011-10-18 09:15:41.444036391 +0200
-+++ gtk+-2.24.7/gtk/gtkwidget.c	2011-10-18 09:15:41.466036383 +0200
+diff -up gtk+-2.24.32/gtk/gtkwidget.c.0020~ gtk+-2.24.32/gtk/gtkwidget.c
+--- gtk+-2.24.32/gtk/gtkwidget.c.0020~	2016-10-22 06:11:42.000000000 +0200
++++ gtk+-2.24.32/gtk/gtkwidget.c	2018-04-27 12:01:15.854279882 +0200
 @@ -2467,6 +2467,13 @@ gtk_widget_class_init (GtkWidgetClass *k
  							       0.0, 1.0, 0.04,
  							       GTK_PARAM_READABLE));

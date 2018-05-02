@@ -22,8 +22,8 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api}
-Version:	2.24.31
-Release:	2
+Version:	2.24.32
+Release:	1
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gtk.org
@@ -47,6 +47,8 @@ Patch20:	gtk+-2.24.7-window-dragging.patch
 Patch21:	gtk+-2.20.0-icon-padding.patch
 
 BuildRequires:	cups-devel
+BuildRequires:	pkgconfig(krb5)
+BuildRequires:	pkgconfig(com_err)
 BuildRequires:	fam-devel
 BuildRequires:	gettext-devel
 BuildRequires:	pkgconfig(atk) >= 1.29.2

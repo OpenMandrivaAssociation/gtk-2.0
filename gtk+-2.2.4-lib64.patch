@@ -1,7 +1,8 @@
---- gtk+-2.2.4/configure.ac.lib64	2004-07-16 12:18:05.000000000 +0200
-+++ gtk+-2.2.4/configure.ac	2004-07-16 12:26:06.000000000 +0200
-@@ -1620,6 +1620,39 @@ AM_CONDITIONAL(ENABLE_GTK_DOC, test x$en
- 
+diff -up gtk+-2.24.32/configure.ac.0013~ gtk+-2.24.32/configure.ac
+--- gtk+-2.24.32/configure.ac.0013~	2018-04-27 12:00:10.061793999 +0200
++++ gtk+-2.24.32/configure.ac	2018-04-27 12:01:02.098596505 +0200
+@@ -1631,6 +1631,39 @@ AM_CONDITIONAL(MSVC_BASE_NO_TOOLSET_SET,
+ AM_CONDITIONAL(MSVC_NO_TOOLSET_SET, [test x$MSVC_TOOLSET = x])
  
  ##################################################
 +# Determine the target libdir name
