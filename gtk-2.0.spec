@@ -1,5 +1,5 @@
 %define url_ver %(echo %{version}|cut -d. -f1,2)
-%define enable_gtkdoc 1
+%define enable_gtkdoc 0
 %define enable_bootstrap 0
 %define enable_tests 0
 
