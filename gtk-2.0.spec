@@ -19,6 +19,9 @@
 %define gail_major 18
 %define libgail %mklibname gail %{gail_major}
 %define devgail %mklibname -d gail
+%ifarch %{riscv}
+%define _disable_lto %nil
+%endif
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api}
