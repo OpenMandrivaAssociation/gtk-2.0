@@ -213,7 +213,7 @@ Gail is the GNOME Accessibility Implementation Library
 
 %prep
 %setup -qn %{pkgname}-%{version}
-%apply_patches
+%autopatch -p1
 
 #needed by patches 4 & 13
 #gw disable it for bootstrapping
