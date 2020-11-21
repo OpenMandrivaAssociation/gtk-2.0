@@ -26,7 +26,7 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api}
 Version:	2.24.32
-Release:	4
+Release:	5
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gtk.org
@@ -282,6 +282,13 @@ mv %{buildroot}%{_bindir}/gtk-update-icon-cache %{buildroot}%{_bindir}/gtk%{api}
 cat gtk20-properties.lang >> gtk20.lang
 
 %post -n %{modules}
+if [ -d %{_datadir}/icons ]; then
+ for i in `/bin/ls %{_datadir}/icons` ; do
+  [ -d "%{_datadir}/icons/$i" -a -e "%{_datadir}/icons/$i/icon-theme.cache" -a -e "%{_datadir}/icons/$i/index.theme" ] && gtk%{api}-update-icon-cache --force --quiet %{_datadir}/icons/$i
+ done
+ exit 0
+fi
+
 if [ "$1" = "2" ]; then
     if [ -f %{_sysconfdir}/gtk-%{api}/gtk.immodules ]; then
 	rm -f %{_sysconfdir}/gtk-%{api}/gtk.immodules
