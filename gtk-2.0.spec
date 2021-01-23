@@ -1,5 +1,5 @@
 %define url_ver %(echo %{version}|cut -d. -f1,2)
-%define enable_gtkdoc 0
+%define enable_gtkdoc 1
 %define enable_bootstrap 0
 %define enable_tests 0
 
@@ -25,8 +25,8 @@
 
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api}
-Version:	2.24.32
-Release:	4
+Version:	2.24.33
+Release:	1
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gtk.org
