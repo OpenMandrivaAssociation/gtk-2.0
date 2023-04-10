@@ -82,6 +82,24 @@ BuildRequires:	pkgconfig(xi)
 BuildRequires:	pkgconfig(xinerama)
 BuildRequires:	pkgconfig(xrandr)
 BuildRequires:	pkgconfig(xrender)
+%if %{with compat32}
+BuildRequires:	devel(libatk-1.0)
+BuildRequires:	devel(libcairo)
+BuildRequires:	devel(libgdk_pixbuf-2.0)
+BuildRequires:	devel(libglib-2.0)
+BuildRequires:	devel(libpango-1.0)
+BuildRequires:	devel(libpangocairo-1.0)
+BuildRequires:	devel(libX11)
+BuildRequires:	devel(libXcomposite)
+BuildRequires:	devel(libXcursor)
+BuildRequires:	devel(libXdamage)
+BuildRequires:	devel(libXext)
+BuildRequires:	devel(libXfixes)
+BuildRequires:	devel(libXi)
+BuildRequires:	devel(libXinerama)
+BuildRequires:	devel(libXrandr)
+BuildRequires:	devel(libXrender)
+%endif
 %if %{enable_tests}
 BuildRequires:	x11-server-xvfb
 # gw tests will fail without this
