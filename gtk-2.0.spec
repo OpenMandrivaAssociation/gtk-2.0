@@ -99,6 +99,7 @@ BuildRequires:	devel(libXi)
 BuildRequires:	devel(libXinerama)
 BuildRequires:	devel(libXrandr)
 BuildRequires:	devel(libXrender)
+BuildRequires:	devel(libharfbuzz)
 %endif
 %if %{enable_tests}
 BuildRequires:	x11-server-xvfb
