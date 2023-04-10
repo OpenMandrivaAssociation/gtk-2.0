@@ -108,6 +108,8 @@ BuildRequires:	devel(libjpeg)
 BuildRequires:	devel(libtiff)
 BuildRequires:	devel(libblkid)
 BuildRequires:	devel(libmount)
+BuildRequires:	devel(libfribidi)
+BuildRequires:	devel(libXft)
 %endif
 %if %{enable_tests}
 BuildRequires:	x11-server-xvfb
