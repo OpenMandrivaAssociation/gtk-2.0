@@ -100,6 +100,14 @@ BuildRequires:	devel(libXinerama)
 BuildRequires:	devel(libXrandr)
 BuildRequires:	devel(libXrender)
 BuildRequires:	devel(libharfbuzz)
+BuildRequires:	devel(libbz2)
+BuildRequires:	devel(libXau)
+BuildRequires:	devel(libXdmcp)
+BuildRequires:	devel(libxcb)
+BuildRequires:	devel(libjpeg)
+BuildRequires:	devel(libtiff)
+BuildRequires:	devel(libblkid)
+BuildRequires:	devel(libmount)
 %endif
 %if %{enable_tests}
 BuildRequires:	x11-server-xvfb
