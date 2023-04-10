@@ -1,0 +1,13 @@
+diff -up gtk+-2.24.33/gtk/gtkimcontextsimple.h.omv~ gtk+-2.24.33/gtk/gtkimcontextsimple.h
+diff -up gtk+-2.24.33/modules/input/Makefile.am.omv~ gtk+-2.24.33/modules/input/Makefile.am
+--- gtk+-2.24.33/modules/input/Makefile.am.omv~	2023-04-10 22:10:49.260876774 +0200
++++ gtk+-2.24.33/modules/input/Makefile.am	2023-04-10 22:11:11.328068551 +0200
+@@ -5,6 +5,8 @@ if PLATFORM_WIN32
+ no_undefined = -no-undefined
+ endif
+ 
++AM_CPPFLAGS = -DGTK_COMPILATION
++
+ INCLUDES = \
+ 	-I$(top_srcdir) 		\
+ 	-I$(top_srcdir)/gdk		\

@@ -1,3 +1,10 @@
+# for steam with STEAM_RUNTIME=0
+%ifarch %{x86_64}
+%bcond_without compat32
+%else
+%bcond_with compat32
+%endif
+
 %define url_ver %(echo %{version}|cut -d. -f1,2)
 %define enable_gtkdoc 1
 %define enable_bootstrap 0
@@ -15,6 +22,8 @@
 %define girgdkx11 %mklibname gdkx11-gir %{api}
 %define girname %mklibname gtk-gir %{api}
 %define devname	%mklibname -d %{pkgname} %{api}
+%define lib32 %mklib32name gtk-x11_ %{api} %{major}
+%define dev32 %mklib32name -d %{pkgname} %{api}
 
 %define gail_major 18
 %define libgail %mklibname gail %{gail_major}
@@ -26,11 +35,13 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api}
 Version:	2.24.33
-Release:	2
+Release:	3
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://www.gtk.org
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gtk+/%{url_ver}/%{pkgname}-%{version}.tar.xz
+Patch0:		gtk-2.24.33-what-are-those-guys-smoking.patch
+Patch1:		gtk-2.24.33-work-around-more-crackpottage.patch
 # extra IM modules (vietnamese and tamil) -- pablo
 #gw TODO, needs to be fixed for 2.21.3
 Patch4:		gtk+-2.13.1-extra_im.patch
@@ -155,6 +166,22 @@ Obsoletes:	%{_lib}gtk+%{api}_%{major} < 2.24.17-2
 %description -n %{libgtk}
 This package contains a shared library for %{name}.
 
+%package -n %{lib32}
+Summary:	32-bit version of the GTK 2 toolkit
+Group:		System/Libraries
+
+%description -n %{lib32}
+32-bit version of the GTK 2 toolkit
+
+%package -n %{dev32}
+Summary:	32-bit version of GTK 2 development files
+Group:		Development/GNOME and GTK+
+Requires:	%{devname} = %{EVRD}
+Requires:	%{lib32} = %{EVRD}
+
+%description -n %{dev32}
+32-bit version of GTK 2 development files
+
 %package -n %{girgdk}
 Summary:	GObject Introspection interface description for %{name}
 Group:		System/Libraries
@@ -222,10 +249,24 @@ sed -i 's/HAVE_GTK_DOC/ENABLE_GTK_DOC/' gtk-doc.make
 autoreconf -fi
 
 %build
+export CONFIGURE_TOP=$(pwd)
+
 # fix crash in nautilus (GNOME bug #596977)
 export CFLAGS=`echo %{optflags} | sed -e 's/-fomit-frame-pointer//g'`
 
+%if %{with compat32}
+mkdir build32
+cd build32
+%configure32 \
+	--disable-static
+# fight unused direct deps
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+cd ..
+%endif
+
 #CONFIGURE_TOP=..
+mkdir build64
+cd build64
 export CPPFLAGS="-DGTK_COMPILATION"
 %configure \
 	--disable-static \
@@ -236,23 +277,42 @@ export CPPFLAGS="-DGTK_COMPILATION"
 	--enable-gtk-doc=yes \
 %endif
 	--with-xinput=yes
-
 # fight unused direct deps
 sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+cd ..
 
-%make
+%if %{with compat32}
+cd build32
+%make_build
+cd ..
+%endif
 
+cd build64
+%make_build
+cd ..
+
+%if ! %{cross_compiling}
 %check
 %if %{enable_tests}
+cd build32
 XDISPLAY=$(i=1; while [ -f /tmp/.X$i-lock ]; do i=$(($i+1)); done; echo $i)
 %{_bindir}/Xvfb :$XDISPLAY &
 export DISPLAY=:$XDISPLAY
 make check
 kill $(cat /tmp/.X$XDISPLAY-lock) ||:
 %endif
+%endif
 
 %install
-%makeinstall_std mandir=%{_mandir} RUN_QUERY_IMMODULES_TEST=false RUN_QUERY_LOADER_TEST=false
+%if %{with compat32}
+cd build32
+%make_install mandir=%{_mandir} RUN_QUERY_IMMODULES_TEST=false RUN_QUERY_LOADER_TEST=false
+cd ..
+%endif
+
+cd build64
+%make_install mandir=%{_mandir} RUN_QUERY_IMMODULES_TEST=false RUN_QUERY_LOADER_TEST=false
+cd ..
 
 mkdir -p %{buildroot}%{_sysconfdir}/gtk-%{api}
 touch %{buildroot}%{_sysconfdir}/gtk-%{api}/gtk.immodules.%{_lib}
@@ -369,3 +429,14 @@ fi
 %{_libdir}/libgailutil.so
 %{_includedir}/gail-1.0/
 %{_libdir}/pkgconfig/gail.pc
+
+%if %{with compat32}
+%files -n %{lib32}
+%{_prefix}/lib/libgailutil.so*
+%{_prefix}/lib/libgdk-x11-2.0.so*
+%{_prefix}/lib/libgtk-x11-2.0.so*
+%{_prefix}/lib/gtk-2.0
+
+%files -n %{dev32}
+%{_prefix}/lib/pkgconfig/*
+%endif

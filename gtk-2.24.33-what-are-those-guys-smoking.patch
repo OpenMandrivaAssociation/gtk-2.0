@@ -1,0 +1,47 @@
+diff -up gtk+-2.24.33/gtk/gtkscale.c.omv~ gtk+-2.24.33/gtk/gtkscale.c
+--- gtk+-2.24.33/gtk/gtkscale.c.omv~	2023-04-10 21:51:36.603778937 +0200
++++ gtk+-2.24.33/gtk/gtkscale.c	2023-04-10 21:55:50.430023449 +0200
+@@ -1471,7 +1471,7 @@ gtk_scale_add_mark (GtkScale        *sca
+   mark->position = position;
+  
+   priv->marks = g_slist_insert_sorted_with_data (priv->marks, mark,
+-                                                 (GCompareFunc) compare_marks,
++                                                 compare_marks,
+                                                  GINT_TO_POINTER (
+                                                    gtk_range_get_inverted (GTK_RANGE (scale)) 
+                                                    ));
+diff -up gtk+-2.24.33/tests/testmenubars.c.omv~ gtk+-2.24.33/tests/testmenubars.c
+--- gtk+-2.24.33/tests/testmenubars.c.omv~	2023-04-10 22:00:43.006592194 +0200
++++ gtk+-2.24.33/tests/testmenubars.c	2023-04-10 22:02:12.197372352 +0200
+@@ -21,7 +21,7 @@
+ #include <gtk/gtk.h>
+ 
+ static GtkWidget *
+-create_menu (depth)
++create_menu (int depth)
+ {
+     GtkWidget *menu;
+     GtkWidget *menuitem;
+@@ -70,19 +70,19 @@ create_menubar (GtkPackDirection pack_di
+   menuitem = gtk_image_menu_item_new_from_stock (GTK_STOCK_HOME, NULL);
+   gtk_menu_shell_append (GTK_MENU_SHELL (menubar), menuitem);
+   gtk_label_set_angle (GTK_LABEL (GTK_BIN (menuitem)->child), angle);
+-  menu = create_menu (2, TRUE);
++  menu = create_menu (2);
+   gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem), menu);
+ 
+   menuitem = gtk_menu_item_new_with_label ("foo");
+   gtk_menu_shell_append (GTK_MENU_SHELL (menubar), menuitem);
+   gtk_label_set_angle (GTK_LABEL (GTK_BIN (menuitem)->child), angle);
+-  menu = create_menu (2, TRUE);
++  menu = create_menu (2);
+   gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem), menu);
+ 
+   menuitem = gtk_menu_item_new_with_label ("bar");
+   gtk_menu_shell_append (GTK_MENU_SHELL (menubar), menuitem);
+   gtk_label_set_angle (GTK_LABEL (GTK_BIN (menuitem)->child), angle);
+-  menu = create_menu (2, TRUE);
++  menu = create_menu (2);
+   gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem), menu);
+ 
+   return menubar;
