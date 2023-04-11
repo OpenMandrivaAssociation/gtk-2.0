@@ -110,6 +110,9 @@ BuildRequires:	devel(libblkid)
 BuildRequires:	devel(libmount)
 BuildRequires:	devel(libfribidi)
 BuildRequires:	devel(libXft)
+BuildRequires:	devel(libpangoft2-1.0)
+BuildRequires:	devel(libfreetype)
+BuildRequires:	devel(libcups)
 %endif
 %if %{enable_tests}
 BuildRequires:	x11-server-xvfb
