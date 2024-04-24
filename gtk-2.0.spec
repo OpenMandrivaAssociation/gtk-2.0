@@ -65,6 +65,7 @@ BuildRequires:	pkgconfig(krb5)
 BuildRequires:	pkgconfig(com_err)
 BuildRequires:	fam-devel
 BuildRequires:	gettext-devel
+BuildRequires:  %{_lib}harfbuzz-gir-devel
 BuildRequires:	pkgconfig(atk) >= 1.29.2
 BuildRequires:	pkgconfig(cairo) >= 1.12.0
 BuildRequires:	pkgconfig(gdk-pixbuf-2.0) >= 2.21.0
