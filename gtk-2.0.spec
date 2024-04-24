@@ -35,11 +35,11 @@
 Summary:	The GIMP ToolKit (GTK+), a library for creating GUIs
 Name:		%{pkgname}%{api}
 Version:	2.24.33
-Release:	3
+Release:	4
 License:	LGPLv2+
 Group:		System/Libraries
-Url:		http://www.gtk.org
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gtk+/%{url_ver}/%{pkgname}-%{version}.tar.xz
+Url:		https://www.gtk.org
+Source0:	https://ftp.gnome.org/pub/GNOME/sources/gtk+/%{url_ver}/%{pkgname}-%{version}.tar.xz
 Patch0:		gtk-2.24.33-what-are-those-guys-smoking.patch
 Patch1:		gtk-2.24.33-work-around-more-crackpottage.patch
 # extra IM modules (vietnamese and tamil) -- pablo
@@ -133,7 +133,7 @@ Requires:	gio2.0
 Requires:	pango-modules
 %if !%{enable_bootstrap}
 Suggests:	xdg-user-dirs-gtk
-Suggests:	breeze-gtk
+Suggests:	(breeze-gtk or plasma6-breeze-gtk)
 Suggests:	gtk2-modules
 %endif
 Provides:	gtk2 = %{version}-%{release}
