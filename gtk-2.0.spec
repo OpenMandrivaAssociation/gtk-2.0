@@ -60,6 +60,11 @@ Patch20:	gtk+-2.24.7-window-dragging.patch
 # (fc) 2.20.0-3mdv allow specifying icon padding for tray icon (GNOME bug #583273) (Fedora)
 Patch21:	gtk+-2.20.0-icon-padding.patch
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	cups-devel
 BuildRequires:	pkgconfig(krb5)
 BuildRequires:	pkgconfig(com_err)
